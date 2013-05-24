@@ -1,0 +1,5 @@
+#Thu Dec 29 16:14:51 CST 2011
+eclipse.preferences.version=1
+validator.Checked=WebRoot/js,WebRoot/resources/js/jquery.date.js,WebRoot/paychex,WebRoot/resources/js/jquery.datePicker.js,WebRoot/fullcalendar/jquery/jquery-1.5.2.min.js,WebRoot/labor/js/jquery.min.js
+validator.Revalidate=true
+validator.Unchecked=

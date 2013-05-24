@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-lock>
+	<!-- action open -->
+	<open value=""/>
+	<open value="index"/>
+	<open value="login"/>
+	<open value="pageFind"/>
+	<open value="findPressByID"/>
+	<open value="pageUp"/>
+	<open value="pageDown"/>
+	<open value="findUpPress"/>
+	<open value="findNextPress"/>
+	<open value="addTaxPayer"/>
+	<open value="toRegisterPage"></open>
+	<open value="toMonthWritten"></open>
+	<open value="paychexin"></open>
+	<!-- JSP open -->
+	<open value="banquanshengming.html"/>
+	<open value="falvguwen.html"/>
+	<open value="gongsijianjie.html"/>
+	<open value="guanggaofuwu.html"/>
+	<open value="lianxifangshi.html"/>
+	<open value="wentibaogao.html"/>
+	<open value="zhaoxiannashi.html"/>
+	<open value="loginMain.jsp"/>
+	<!-- User Login Open -->
+	<userOpen value="LoginSuccess.jsp"/>
+	<!-- Administrators Login Open-->
+	<adminOpen value=""/>
+</web-lock>

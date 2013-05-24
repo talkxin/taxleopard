@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="jint" type="java.lang.Integer" />
+	<typeAlias alias="jstring" type="java.lang.String" />
+	<typeAlias alias="shSharesIn" type="com.shares.entity.ShSharesIn" />
+	<typeAlias alias="shSharesInfo" type="com.shares.entity.ShSharesInfo" />
+	<typeAlias alias="shSharesOut" type="com.shares.entity.ShSharesOut" />
+	<typeAlias alias="shSharesPrice" type="com.shares.entity.ShSharesPrice" />
+	<!-- 基本信息各种操作 -->
+	<procedure id="addSharesInfo" parameterClass="shSharesInfo"
+		resultClass="shSharesInfo">
+  	<![CDATA[{call shares_insertSharesInfo (#uid#,#sharesType#,#sharesName#,#equityType#,#sharesType2#,#sharesAdd#,#sharesInTime#,#sharesNumber#,#sharesAllNumber#,#sharesInDayNumber#,#equityOutDay#,#taxedNumber#)}]]>
+	</procedure>
+	<!-- 普通股票修改 -->
+	<update id="upShares" parameterClass="shSharesInfo">
+		update sh_sharesInfo set
+		sharesType2=#sharesType2#,uid=#uid#,sharesType=#sharesType#,sharesName=#sharesName#,equityType=#equityType#,sharesAdd=#sharesAdd#,sharesInTime=#sharesInTime#,sharesNumber=#sharesNumber#,sharesAllNumber=#sharesAllNumber#,sharesInDayNumber=#sharesInDayNumber#,taxedNumber=#taxedNumber#
+		where sid=#sid#
+	</update>
+	<!-- 股权修改 -->
+	<update id="upEquity" parameterClass="shSharesInfo">
+		update sh_sharesInfo set
+		uid=#uid#,sharesType=#sharesType#,sharesName=#sharesName#,equityType=#equityType#,sharesAdd=#sharesAdd#,sharesInTime=#sharesInTime#,sharesNumber=#sharesNumber#,sharesAllNumber=#sharesAllNumber#,sharesInDayNumber=#sharesInDayNumber#,equityOutDay=#equityOutDay#
+		where sid=#sid#
+	</update>
+	<!-- 修改止蚀价 -->
+	<update id="upEarlyWarning" parameterClass="shSharesInfo">
+		update sh_sharesInfo
+		set earlyWarning=#earlyWarning# where sid=#sid#
+	</update>
+	<!-- 删除所有 -->
+	<delete id="delSharesInfo" parameterClass="jint">
+		delete sh_sharesInfo
+		where sid=#sid#
+		delete sh_sharesIn where sid=#sid#
+		delete sh_sharesOut
+		where sid=#sid#
+		delete sh_sharesPrice where sid=#sid#
+	</delete>
+
+	<!-- 股票追加 -->
+	<insert id="addSharesIn" parameterClass="shSharesIn">
+		insert into sh_sharesIn
+		values (#sid#,#uid#,#sharesInTime#,#sharesInNumber#,#sharesInPrice#,#inOtherCost#)
+	</insert>
+	<update id="upSharesIn" parameterClass="shSharesIn">
+		update sh_sharesIn set
+		sid=#sid#,uid=#uid#,sharesInTime=#sharesInTime#,sharesInNumber=#sharesInNumber#,sharesInPrice=#sharesInPrice#,inOtherCost=#inOtherCost# where eiid=#eiid#
+	</update>
+	<delete id="delSharesIn" parameterClass="jint">
+		delete sh_sharesIn where
+		eiid=#eiid#
+	</delete>
+
+	<!-- 股票转让 -->
+	<insert id="addSharesOut" parameterClass="shSharesOut">
+		insert into sh_sharesOut values(#sid#,#uid#,#outChina#,#sharesOutNumber#,#sharesOutPrice#,#sharesAllNumber#,#taxNumber#,#taxableNumber#,#payOutNumber#,#taxEdNumber#,#taxEdType#,#outOtherCost#,#sharesOutTime#)
+	</insert>
+	<update id="upSharesOut" parameterClass="shSharesOut">
+		update sh_sharesOut set
+		sid=#sid#,uid=#uid#,outChina=#outChina#,sharesOutNumber=#sharesOutNumber#,sharesOutPrice=#sharesOutPrice#,sharesAllNumber=#sharesAllNumber#,taxNumber=#taxNumber#,taxableNumber=#taxableNumber#,payOutNumber=#payOutNumber#,taxEdNumber=#taxEdNumber#,taxEdType=#taxEdType#,sharesOutTime=#sharesOutTime#,outOtherCost=#outOtherCost#
+		where eoid=#eoid#
+	</update>
+	<delete id="delSharesOut" parameterClass="jint">
+		delete sh_sharesOut
+		where eoid=#eoid#
+	</delete>
+
+	<!-- 股票每日收盘价 -->
+	<insert id="addSharesPrice" parameterClass="shSharesPrice">
+		insert into
+		sh_sharesPrice values(#sid#,#priceTime#,#price#)
+	</insert>
+	<update id="upSharesPrice" parameterClass="shSharesPrice">
+		update sh_sharesPrice
+		set sid=#sid#,priceTime=#priceTime#,price=#price# where spid=#spid#
+	</update>
+	<delete id="delSharesPrice" parameterClass="jint">
+		delete sh_sharesPrice
+		where spid=#spid#
+	</delete>
+
+	<!-- 查询方法 -->
+	<procedure id="isGetShares" parameterClass="jint"
+		resultClass="shSharesInfo">
+	<![CDATA[{call shares_selectSharesInfo (#uid#)}]]>
+	</procedure>
+	<!-- 查询股票追加历史 -->
+	<select id="isGetGupiaolishi" parameterClass="jint" resultClass="shSharesIn">
+		select * from sh_sharesIn where sid=#sid#
+	</select>
+	<select id="isGetZhuanrang" parameterClass="jint" resultClass="shSharesOut">
+		select * from sh_sharesOut where sid=#sid#
+	</select>
+</sqlMap>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Student">
+	<typeAlias alias="press" type="com.org.entity.Press" />
+	<select id="findPress" resultClass="press">
+		select * from Press order by pressID desc
+	</select>
+	<select id="selectNewIndex" resultClass="press">
+		select top(4) * from Press order by PressID desc
+	</select>
+	<insert id="addPress" parameterClass="press">
+		insert into Press values
+		(#pressTitle#,#pressDate#,#pressContent#,#pressIntercept#)
+	</insert>
+	<delete id="delPress" parameterClass="Integer">
+		delete from Press where
+		PressID=#pressID#
+	</delete>
+	<update id="updPress" parameterClass="press">
+		update Press set
+		PressTitle=#pressTitle#,PressDate=#pressDate#
+		,PressContent=#pressContent# where PressID=#pressID#
+	</update>
+	<!-- 根据新闻名字查找新闻 -->
+	<select id="findPressByID" resultClass="press" parameterClass="Integer">
+		select * from Press where PressID=#pressID#
+	</select>
+	<!-- 查找下一篇 -->
+	<select id="findNextPress" resultClass="press" parameterClass="Integer">
+	<![CDATA[
+		select top 1 * from Press where PressID > #pressID#
+	]]>
+	</select>
+	<!-- 查找上一篇 -->
+	<select id="findUpPress" resultClass="press" parameterClass="Integer">
+	<![CDATA[
+	select top 1 * from Press where PressID < #pressID# order by PressID desc
+	 ]]>
+	</select>
+	<!-- 分页 -->
+	<select id="findPage" resultClass="press" parameterClass="press">
+	<![CDATA[
+	select top 10 * from Press where PressID not in (select top ((#pages#-1)*10) PressID FROM Press where pressTitle like #pressTitle# order by pressID desc) and pressTitle like #pressTitle# order by pressID desc
+	]]>
+	</select>
+	<select id="recordCount" resultClass="Integer" parameterClass="java.lang.String">
+		select count(*) from Press where pressTitle like #pressTitle#
+	</select>
+</sqlMap>

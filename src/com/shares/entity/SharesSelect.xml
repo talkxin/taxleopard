@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+     <typeAlias alias="shIsGetFirstShare" type="com.shares.entity.ShIsGetFirstShare"/>
+     <typeAlias alias="shIsGetShareIn" type="com.shares.entity.ShIsGetShareIn"/>
+     <typeAlias alias="shIsGetShareOut" type="com.shares.entity.ShIsGetShareOut"/>
+     
+     <select id="findFirstShare" resultClass="shIsGetFirstShare" parameterClass="shIsGetFirstShare">
+         select * from sh_isGetFistShare where uid=#uid# and sid=#sid#
+	 </select>
+     <select id="findInShare" resultClass="shIsGetShareIn" parameterClass="shIsGetShareIn">
+         select * from sh_isGetShareIn where uid=#uid# and sid=#sid#
+	 </select>
+	 <select id="findOutShare" resultClass="shIsGetShareOut" parameterClass="shIsGetShareOut">
+         select * from sh_isGetShareOut where uid=#uid# and sid=#sid#
+	 </select>
+	 <select id="findFullFirstShare" resultClass="shIsGetFirstShare" parameterClass="shIsGetFirstShare">
+         select * from sh_isGetFistShare where uid=#uid#
+	 </select>
+</sqlMap>

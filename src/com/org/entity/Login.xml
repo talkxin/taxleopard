@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap 
+PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" 
+"http://www.ibatis.com/dtd/sql-map-2.dtd" >
+<sqlMap>
+	<typeAlias alias="login" type="com.org.entity.Login" />
+	<select id="selectAllLogin" resultClass="Login">
+		select * from login
+	</select>
+	<select id="selectLoginByID" resultClass="Login" parameterClass="java.lang.Integer">
+		select * from login where loginID=#loginID#
+	</select>
+	<select id="selectLgoinByUser" resultClass="Login" parameterClass="java.lang.Integer">
+		select * from login where loginUserName=#loginUserName#
+	</select>
+	<select id="selectLoginByUserUpLogin" resultClass="Login"
+	parameterClass="java.lang.Integer">
+		select * from login where loginUserName=#loginUserName# order by loginQuitTime desc
+	</select>
+	<insert id="insertLogin" parameterClass="Login">
+		insert into login(loginUserName,logintime,loginIP,loginQuitTime)
+	</insert>
+	
+</sqlMap>

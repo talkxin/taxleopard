@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="jint" type="java.lang.Integer" />
+	<typeAlias alias="jstring" type="java.lang.String" />
+	<typeAlias alias="acAuction" type="com.auction.entity.AcAuction" />
+	<!-- 对拍卖的数据库操作 -->
+	<insert id="addAuctionInfo" parameterClass="acAuction">
+		insert into
+		ac_Auction
+		values(#uid#,#taxed#,#auctionName#,#auctionOldNumber#,#auctionNumber#,#auctionTime#,#outCastNumber#,#taxNumber#,#taxableNumber#,#payOutNumber#,#taxEdNumber#)
+	</insert>
+	<update id="upAuctionInfo" parameterClass="acAuction">
+		update ac_Auction set
+		uid=#uid#,taxed=#taxed#,auctionName=#auctionName#,auctionOldNumber=#auctionOldNumber#,auctionNumber=#auctionNumber#,auctionTime=#auctionTime#,outCastNumber=#outCastNumber#,taxNumber=#taxNumber#,taxableNumber=#taxableNumber#,payOutNumber=#payOutNumber#,taxEdNumber=#taxEdNumber#
+		where aid=#aid#
+	</update>
+	<delete id="delAuctionInfo" parameterClass="jint">
+		delete ac_Auction where aid=#aid#
+	</delete>
+</sqlMap>

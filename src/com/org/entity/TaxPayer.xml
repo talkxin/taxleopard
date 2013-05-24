@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Student">
+	<typeAlias alias="taxPayer" type="com.org.entity.TaxPayer" />
+	<typeAlias alias="taxmatter" type="com.org.entity.Matter" />
+	<!-- 登录查询 -->
+	<select id="findLogin" resultClass="taxPayer" parameterClass="taxPayer">
+		select * from TaxPayer where
+		taxUserName=#taxUserName# and
+		taxPassWord=#taxPassWord#	
+	</select>
+	<!-- 根据用户名查找 用户-->
+	<select id="findTaxPayerByName" resultClass="taxPayer"
+		parameterClass="taxPayer">
+		select * from TaxPayer where taxUserName=#taxUserName#
+	</select>
+	<!-- 添加用户 -->
+	<insert id="addTaxPayer" parameterClass="taxPayer">
+		insert into TaxPayer
+		(TaxUserName,TaxPassWord,pid) values
+		(#taxUserName#,#taxPassWord#,#pid#)
+	</insert>
+	<!-- 更改用户状态 -->
+	<update id="updTaxPayer" parameterClass="taxPayer">
+		update TaxPayer set
+		state=#state# where taxID=#taxID#
+	</update>
+	<!-- 查询密码问题 -->
+	<select id="findMatters" resultClass="taxmatter" parameterClass="Integer">
+		select * from Matter where taxID=#taxID#
+	</select>
+	<!-- 根据问题题目查找问题 -->
+	<select id="findMatterByName" resultClass="taxmatter"
+		parameterClass="string">
+		select * from matter where Matter=#matter#
+	</select>
+	<!-- 更改密码 -->
+	<update id="updPassWord" parameterClass="taxPayer">
+		update TaxPayer set TaxPassWord=#taxPassWord# where TaxID=#taxID#
+	</update>
+	
+</sqlMap>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Student">
+	<typeAlias alias="function" type="com.org.entity.Functions" />
+	<!-- 查询所有功能 -->
+	<select id="findFunction" resultClass="function" parameterClass="java.lang.Integer">
+		select * from Functions where functionID in (select FunctionID from UserFunction where TaxID=#TaxID#)
+	</select>
+	<!-- 查询附属功能 -->
+	<select id="findReside" resultClass="function" parameterClass="Integer">
+		select * from Functions where FunctionReside=#functionReside#
+	</select>
+	<!-- 添加功能 -->
+	<insert id="addFunction" parameterClass="function">
+		insert into Functions
+		values
+		(#functionName#,#functionReside#,#functionLink#,#functionWhether#,#functionBewrite#,#functionImages#,#functionCharge#,#functionBasic#)
+	</insert>
+	<!--删除功能  -->
+	<delete id="delFunction" parameterClass="Integer">
+		delete from Functions
+		where FunctionID=#functionID#
+	</delete>
+	<!--更改功能  -->
+	<update id="updFunction" parameterClass="function">
+		update functions set
+		FunctionName=#functionName#,FunctionReside=#functionReside#,FunctionLink=#functionLink#,FunctionWhether=#functionWhether#,FunctionBewrite=#functionBewrite#,FunctionImages=#functionImages#,
+		FunctionCharge=#functionCharge#,FunctionBasic=#functionBasic# where
+		FunctionID=#functionID# 
+	</update>
+</sqlMap>

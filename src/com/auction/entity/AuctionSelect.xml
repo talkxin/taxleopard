@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="jint" type="java.lang.Integer" />
+	<typeAlias alias="jstring" type="java.lang.String" />
+	<typeAlias alias="acAuction" type="com.auction.entity.AcAuction" />
+	<!-- 查询拍卖 -->
+    <select id="findAllAuction" parameterClass="acAuction" resultClass="acAuction">
+		select * from ac_Auction where uid=#uid#
+	</select>
+</sqlMap>

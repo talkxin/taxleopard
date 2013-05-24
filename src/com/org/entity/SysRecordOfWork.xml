@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Student">
+	<typeAlias alias="sysRecordOfWork" type="com.org.entity.SysRecordOfWork" />
+	<!-- 添加 -->
+	<insert id="insertSysRecordOfWork" parameterClass="SysRecordOfWork">
+		insert into SysRecordOfWork values (#title#,#text#,#beginTime#,#endTime#,#type#);<!-- 添加属性 -->
+	</insert>
+	<!-- 删除 -->
+	<delete id="deleteSysRecordOfWork" parameterClass="java.lang.Integer">
+		delete from SysRecordOfWork where id=#id#
+	</delete>
+	<update id="updateSysRecordOfWork" parameterClass="SysRecordOfWork">
+		UPDATE RecordOfWork
+   			SET title = #title#
+      ,text = #text#
+      ,beginTime = #beginTime#
+      ,endTime = #endTime#
+      ,type = #type#
+ 		WHERE id=#id#
+	</update>
+	<select id="selectAllSysRecordOfWork" resultClass="SysRecordOfWork">
+		select * from SysRecordOfWork
+	</select>
+	<select id="selectSysRecordOfWorkByID" resultClass="SysRecordOfWork" parameterClass="java.lang.Integer">
+		select * from SysRecordOfWork where id=#id#
+	</select>
+	<select id="selectSysRecordOfWorkByTime" resultClass="SysRecordOfWork" parameterClass="SysRecordOfWork">
+		select * from SysRecordOfWork where beginTime between #beginTime# and #endTime#
+	</select>
+</sqlMap>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Student">
+	<typeAlias alias="recordOfWork" type="com.org.entity.RecordOfWork" />
+	<!--  添加 -->
+	<insert id="addRecordOfWork" parameterClass="RecordOfWork">
+		insert into RecordOfWork values(#title#,#body#,#beginTime#,#overTime#,#allDay#)
+	</insert>
+	<!-- 查询 -->
+	<select id="findRecordOfWork" resultClass="RecordOfWork" parameterClass="java.lang.Integer">
+		select * from RecordOfWork where userID=#userID#
+	</select>
+	<!-- select by beginTime -->
+	<select id="findRecordOfWorkByBeginTime" resultClass="RecordOfWork" parameterClass="RecordOfWork">
+		select * from RecordOfWork where beginTime=#beginTime# and userID=#userID#
+	</select>
+	<select id="selectRecordOfWorkByID" resultClass="RecordOfWork" parameterClass="java.lang.Integer">
+		select * from RecordOfWork where id=#id#
+	</select>
+	<delete id="deleteRescordForID" parameterClass="java.lang.Integer">
+		delete from RecordOfWork where id=#id#
+	</delete>
+	<update id="updateRescordForID" parameterClass="RecordOfWork">
+		UPDATE RecordOfWork
+   			SET title = #title#
+      ,body = #body#
+      ,beginTime = #beginTime#
+      ,overTime = #overTime#
+      ,allDay = #allDay#
+      ,userID = #userID#
+ 		WHERE id=#id#
+	</update>
+</sqlMap>

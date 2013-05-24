@@ -1,0 +1,578 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN"
+ "http://www.springframework.org/dtd/spring-beans.dtd">
+<beans>
+	<bean id="propertyConfigurer"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>/WEB-INF/DBConnection.properties</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="${jdbc.driverClassName}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<bean id="sqlMapClient" class="org.springframework.orm.ibatis.SqlMapClientFactoryBean">
+		<property name="configLocation" value="/WEB-INF/SqlMapConfig.xml" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	<!-- 登录操作 -->
+	<bean id="taxPayerDao" class="com.org.dao.impl.TaxPayerDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient">
+		</property>
+	</bean>
+	<bean id="taxPayerService" class="com.org.service.impl.TaxPayerServiceImpl">
+		<property name="taxPayerDao" ref="taxPayerDao">
+		</property>
+	</bean>
+	<bean name="taxPayerAction" class="com.org.action.TaxPayerAction">
+		<property name="taxPayerService" ref="taxPayerService">
+		</property>
+		<property name="adminRegisterService" ref="adminRegisterService"></property>
+	</bean>
+	<!--角色管理模块 -->
+	<bean id="userPartDao" class="com.org.dao.impl.UserPartDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<bean id="userPartService" class="com.org.service.impl.UserPartServiceImpl">
+		<property name="userPartDao" ref="userPartDao"></property>
+	</bean>
+	<bean id="userPartAction" class="com.org.action.UserPartAction">
+		<property name="userPartService" ref="userPartService"></property>
+	</bean>
+	<!-- 用户功能模块 -->
+	<bean id="userFunctionDao" class="com.org.dao.impl.UserFunctionDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<bean id="userFunctionService" class="com.org.service.impl.UserFunctionServiceImpl">
+		<property name="userFunctionDao" ref="userFunctionDao"></property>
+	</bean>
+	<bean id="userFunctionAction" class="com.org.action.UserFunctionAction">
+		<property name="userFunctionService" ref="userFunctionService"></property>
+	</bean>
+	<!--功能模块 -->
+	<bean id="functionDao" class="com.org.dao.impl.FunctionDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+	<bean id="functionsService" class="com.org.service.impl.FunctionServiceImpl">
+		<property name="functionDao" ref="functionDao" />
+	</bean>
+	<bean id="functionAction" class="com.org.action.FunctionAction">
+		<property name="functionsService" ref="functionsService"></property>
+	</bean>
+	<!-- 税法模块 -->
+	<bean id="dutyDao" class="com.org.dao.impl.DutyDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<bean id="dutyService" class="com.org.service.impl.DutyServiceimpl">
+		<property name="dutyDao" ref="dutyDao"></property>
+	</bean>
+	<bean id="dutyAction" class="com.org.action.DutyAction">
+		<property name="dutyService" ref="dutyService"></property>
+	</bean>
+	<!-- 税模块管理 -->
+	<bean id="dutysDao" class="com.org.dao.impl.DutysDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<bean id="dutysService" class="com.org.service.impl.DutysServiceImpl">
+		<property name="dutysDao" ref="dutysDao"></property>
+	</bean>
+	<bean id="dutysAction" class="com.org.action.DutysAction">
+		<property name="dutysService" ref="dutysService"></property>
+	</bean>
+	<!-- 新闻管理 -->
+	<bean id="pressDao" class="com.org.dao.impl.PressDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient" />
+	</bean>
+	<bean id="pressService" class="com.org.service.impl.PressServiceImpl">
+		<property name="pressDao" ref="pressDao"></property>
+	</bean>
+	<bean id="pressAction" class="com.org.action.PressAction">
+		<property name="pressService" ref="pressService"></property>
+	</bean>
+	<!-- 日程管理 -->
+	<bean id="recordOfWorkDao" class="com.org.dao.impl.RecordOfWorkDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<bean id="recordOfWorkService" class="com.org.service.impl.RecordOfWorkServiceImpl">
+		<property name="recordOfWorkDao" ref="recordOfWorkDao"></property>
+	</bean>
+	<bean id="recordOfWorkAction" class="com.org.action.RecordOfWorkAction">
+		<property name="recordOfWorkService" ref="recordOfWorkService"></property>
+	</bean>
+
+	<!-- 登录信息管理 -->
+	<bean id="adminRegisterDao" class="com.org.dao.impl.AdminRegisterDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<bean id="adminRegisterService" class="com.org.service.impl.AdminRegisterServiceImpl">
+		<property name="adminRegisterDao" ref="adminRegisterDao"></property>
+	</bean>
+	<bean id="adminRegisterAction" class="com.org.action.AdminRegisterAction">
+		<property name="adminRegisterService" ref="adminRegisterService"></property>
+	</bean>
+	<!-- index.jsp 数据类 Action -->
+	<bean id="indexAction" class="com.org.action.IndexAction">
+		<property name="pressService" ref="pressService"></property>
+	</bean>
+
+	<!-- 工资薪金 -->
+	<bean id="wageDao" class="com.paychex.dao.impl.WageDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<bean id="prizeService" class="com.paychex.service.impl.PrizeServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+	<bean id="prizeMonthService" class="com.paychex.service.impl.PrizeMonthServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+	<bean id="subsidyService" class="com.paychex.service.impl.SubsidyServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+	<bean id="subsidyMonthService" class="com.paychex.service.impl.SubsidyMonthServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+	<bean id="bonusService" class="com.paychex.service.impl.BonusServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+	<bean id="bonusMonthService" class="com.paychex.service.impl.BonusMonthServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+	<bean id="insuranceService" class="com.paychex.service.impl.InsuranceServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+	<bean id="payrollMonthService" class="com.paychex.service.impl.PayrollMonthServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+	<bean id="deductionService" class="com.paychex.service.impl.DeductionServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+	<bean id="deductionMonthService" class="com.paychex.service.impl.DeductionMonthServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+
+	<bean id="cooinsuranceService" class="com.paychex.service.impl.CooinsuranceServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+	<bean id="wageYearService" class="com.paychex.service.impl.WageYearServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+	<bean id="wageMonthService" class="com.paychex.service.impl.WageMonthServiceImpl">
+		<property name="wageDao" ref="wageDao"></property>
+	</bean>
+	<bean id="wageReportDwr" class="com.paychex.dwr.WageReportDwr">
+		<property name="prizeService" ref="prizeService"></property>
+		<property name="prizeMonthService" ref="prizeMonthService"></property>
+		<property name="subsidyService" ref="subsidyService"></property>
+		<property name="subsidyMonthService" ref="subsidyMonthService"></property>
+		<property name="bonusService" ref="bonusService"></property>
+		<property name="bonusMonthService" ref="bonusMonthService"></property>
+		<property name="insuranceService" ref="insuranceService"></property>
+		<property name="payrollMonthService" ref="payrollMonthService"></property>
+		<property name="deductionService" ref="deductionService"></property>
+		<property name="deductionMonthService" ref="deductionMonthService"></property>
+		<property name="cooinsuranceService" ref="cooinsuranceService"></property>
+		<property name="wageYearService" ref="wageYearService"></property>
+		<property name="wageMonthService" ref="wageMonthService"></property>
+	</bean>
+	<bean id="wageReportAction" class="com.paychex.action.WageReportAction">
+	</bean>
+
+	<!-- 主题操作 -->
+	<!-- bean DAO -->
+	<bean id="payChexDao" class="com.paychex.dao.PayChexDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<bean id="payChexSelectDao" class="com.paychex.dao.PayChexSelectDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- bean DAO end -->
+	<!-- service DAO -->
+	<bean id="payChexService" class="com.paychex.service.PayChexServiceImpl">
+		<property name="payChexDao" ref="payChexDao"></property>
+		<property name="payChexSelectDao" ref="payChexSelectDao"></property>
+	</bean>
+	<!-- service DAO end -->
+	<!-- paychex Action -->
+	<bean id="paychexAction" class="com.paychex.action.PaychexAction">
+		<property name="payChexService" ref="payChexService"></property>
+	</bean>
+	<!-- DWR begin -->
+	<bean id="paychexDwr" class="com.paychex.dwr.PaychexDwr">
+		<property name="payChexService" ref="payChexService"></property>
+	</bean>
+	<!-- DWR End -->
+
+	<!-- 劳务报酬 -->
+	<bean id="laborReportDao" class="com.labor.dao.impl.LaborReportDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<bean id="lsLaborYearService" class="com.labor.service.impl.LsLaborYearServiceImpl">
+		<property name="laborReportDao" ref="laborReportDao"></property>
+	</bean>
+	<bean id="lsLaborItemService" class="com.labor.service.impl.LsLaborItemServiceImpl">
+		<property name="laborReportDao" ref="laborReportDao"></property>
+	</bean>
+	<bean id="lsLaborMonthService" class="com.labor.service.impl.LsLaborMonthServiceImpl">
+		<property name="laborReportDao" ref="laborReportDao"></property>
+	</bean>
+
+	<bean id="laborReportDwr" class="com.labor.dwr.LaborReportDwr">
+		<property name="lsLaborYearService" ref="lsLaborYearService"></property>
+		<property name="lsLaborItemService" ref="lsLaborItemService"></property>
+		<property name="lsLaborMonthService" ref="lsLaborMonthService"></property>
+	</bean>
+	<!-- 增删改用 -->
+	<bean id="laborDataDao" class="com.labor.dao.impl.LaborDataDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<bean id="laborDataService" class="com.labor.service.impl.LaborDataServiceImpl">
+		<property name="laborDataDao" ref="laborDataDao"></property>
+	</bean>
+	<bean id="laborServiceDwr" class="com.labor.dwr.LaborServiceDwr">
+		<property name="laborDataService" ref="laborDataService"></property>
+		<property name="payChexService" ref="payChexService"></property>
+	</bean>
+	<!-- 劳务报酬action -->
+	<bean id="laborAction" class="com.labor.action.LaborAction">
+	</bean>
+	<!-- 房产管理 -->
+	<!-- dao -->
+	<bean id="houseDataDao" class="com.house.dao.HouseDataDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="houseDataService" class="com.house.service.HouseDataServiceImpl">
+		<property name="houseDataDao" ref="houseDataDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="houseDataDwr" class="com.house.dwr.HouseDataDwr">
+		<property name="houseDataService" ref="houseDataService"></property>
+	</bean>
+	<!-- action -->
+	<bean id="houseAction" class="com.house.action.HouseAction"></bean>
+
+	<!-- 房产管理报表 -->
+	<!-- dao -->
+	<bean id="houseReportDao" class="com.house.dao.HouseReportDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="houseReportService" class="com.house.service.HouseReportServiceImpl">
+		<property name="houseReportDao" ref="houseReportDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="houseReportDwr" class="com.house.dwr.HouseReportDwr">
+		<property name="houseReportService" ref="houseReportService"></property>
+	</bean>
+
+	<!-- 个人首页 -->
+	<!-- dao -->
+	<bean id="personalPageDao" class="com.org.dao.impl.PersonalPageDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="personalPageService" class="com.org.service.impl.PersonalPageServiceImpl">
+		<property name="personalPageDao" ref="personalPageDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="personalPageDwr" class="com.org.dwr.PersonalPageDwr">
+		<property name="personalPageService" ref="personalPageService"></property>
+	</bean>
+	<!-- action -->
+	<bean id="personalPageAction" class="com.org.action.PersonalPageAction">
+	</bean>
+	<!-- 股票管理 -->
+	<!-- dao -->
+	<bean id="sharesData" class="com.shares.dao.SharesDataImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="sharesDataService" class="com.shares.service.SharesDataServiceImpl">
+		<property name="sharesData" ref="sharesData"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="sharesDataDwr" class="com.shares.dwr.SharesDataDwr">
+		<property name="sharesDataService" ref="sharesDataService"></property>
+	</bean>
+	<!-- action -->
+	<bean id="sharesAction" class="com.shares.action.SharesAction"></bean>
+	<!-- 股票管理报表 -->
+	<!-- dao -->
+	<bean id="sharesReportDao" class="com.shares.dao.SharesReportDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="sharesReportService" class="com.shares.service.SharesReportServiceImpl">
+		<property name="sharesReportDao" ref="sharesReportDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="sharesReportDwr" class="com.shares.dwr.SharesReportDwr">
+		<property name="sharesReportService" ref="sharesReportService"></property>
+	</bean>
+
+	<!-- 偶然所得 -->
+	<!-- dao -->
+	<bean id="occasionalDataDao" class="com.occasional.dao.OccasionalDataDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="occasionalDataService" class="com.occasional.service.OccasionalDataServiceImpl">
+		<property name="occasionalDataDao" ref="occasionalDataDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="occasionalDataDwr" class="com.occasional.dwr.OccasionalDataDwr">
+		<property name="occasionalDataService" ref="occasionalDataService"></property>
+	</bean>
+	<!-- action -->
+	<bean id="occasionalAction" class="com.occasional.action.OccasionalAction"></bean>
+
+	<!-- 稿酬所得 -->
+	<!-- dao -->
+	<bean id="remunerationDataDao" class="com.remuneration.dao.RemunerationDataDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="remunerationDataService" class="com.remuneration.service.RemunerationDataServiceImpl">
+		<property name="remunerationDataDao" ref="remunerationDataDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="remunerationDataDwr" class="com.remuneration.dwr.RemunerationDataDwr">
+		<property name="remunerationDataService" ref="remunerationDataService"></property>
+	</bean>
+	<!-- action -->
+	<bean id="remunerationAction" class="com.remuneration.action.RemunerationAction"></bean>
+	<!-- 稿酬所得报表 -->
+	<!-- dao -->
+	<bean id="remunerationReportDao" class="com.remuneration.dao.RemunerationReportDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="remunerationReportService" class="com.remuneration.service.RemunerationReportServiceImpl">
+		<property name="remunerationReportDao" ref="remunerationReportDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="remunerationReportDwr" class="com.remuneration.dwr.RemunerationReportDwr">
+		<property name="remunerationReportService" ref="remunerationReportService"></property>
+	</bean>
+	<!-- 拍卖 -->
+	<!-- dao -->
+	<bean id="auctionDao" class="com.auction.dao.AuctionDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="auctionService" class="com.auction.service.AuctionServiceImpl">
+		<property name="auctionDao" ref="auctionDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="auctionDwr" class="com.auction.dwr.AuctionDwr">
+		<property name="auctionService" ref="auctionService"></property>
+	</bean>
+	<!-- action -->
+	<bean id="auctionAction" class="com.auction.action.AuctionAction"></bean>
+	<!-- 拍卖报表 -->
+	<!-- dao -->
+	<bean id="auctionReportDao" class="com.auction.dao.AuctionReportDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="auctionReportService" class="com.auction.service.AuctionReportServiceImpl">
+		<property name="auctionReportDao" ref="auctionReportDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="auctionReportDwr" class="com.auction.dwr.AuctionReportDwr">
+		<property name="auctionReportService" ref="auctionReportService"></property>
+	</bean>
+	<!-- 其他所得 -->
+	<!-- dao -->
+	<bean id="otherincomeDao" class="com.otherincome.dao.OtherincomeDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- serivce -->
+	<bean id="otherincomeService" class="com.otherincome.service.OtherincomeServiceImpl">
+		<property name="otherincomeDao" ref="otherincomeDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="otherincomeDwr" class="com.otherincome.dwr.OtherincomeDwr">
+		<property name="otherincomeService" ref="otherincomeService"></property>
+	</bean>
+	<!-- action -->
+	<bean id="otherincomeAction" class="com.otherincome.action.OtherincomeAction"></bean>
+	<!-- 其他所得报表 -->
+	<!-- dao -->
+	<bean id="otherIncomeReportDao" class="com.otherincome.dao.OtherIncomeReportDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- serivce -->
+	<bean id="otherIncomeReportService" class="com.otherincome.service.OtherIncomeReportServiceImpl">
+		<property name="otherIncomeReportDao" ref="otherIncomeReportDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="otherIncomeReportDwr" class="com.otherincome.dwr.OtherIncomeReportDwr">
+		<property name="otherIncomeReportService" ref="otherIncomeReportService"></property>
+	</bean>
+
+	<!-- 特许权 -->
+	<!-- dao -->
+	<bean id="charteredDao" class="com.chartered.dao.CharteredDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="charteredService" class="com.chartered.service.CharteredServiceImpl">
+		<property name="charteredDao" ref="charteredDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="charteredDwr" class="com.chartered.dwr.CharteredDwr">
+		<property name="charteredService" ref="charteredService"></property>
+	</bean>
+	<!-- action -->
+	<bean id="charteredAction" class="com.chartered.action.CharteredAction"></bean>
+	<!-- 特许权报表 -->
+	<!-- dao -->
+	<bean id="charteredReportDao" class="com.chartered.dao.CharteredReportDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="charteredReportService" class="com.chartered.service.CharteredReportServiceImpl">
+		<property name="charteredReportDao" ref="charteredReportDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="charteredReportDwr" class="com.chartered.dwr.CharteredReportDwr">
+		<property name="charteredReportService" ref="charteredReportService"></property>
+	</bean>
+	<!-- 个人储蓄 -->
+	<!-- dao -->
+	<bean id="savingsDao" class="com.savings.dao.SavingsDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="savingsService" class="com.savings.service.SavingsServiceImpl">
+		<property name="savingsDao" ref="savingsDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="savingsDwr" class="com.savings.dwr.SavingsDwr">
+		<property name="savingsService" ref="savingsService"></property>
+	</bean>
+	<!-- action -->
+	<bean id="savingsAction" class="com.savings.action.SavingsAction"></bean>
+	<!-- 个人储蓄报表 -->
+	<!-- dao -->
+	<bean id="savingsReportDao" class="com.savings.dao.SavingsReportDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="savingsReportService" class="com.savings.service.SavingsReportServiceImpl">
+		<property name="savingsReportDao" ref="savingsReportDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="savingsReportDwr" class="com.savings.dwr.SavingsReportDwr">
+		<property name="savingsReportService" ref="savingsReportService"></property>
+	</bean>
+
+	<!-- 捐赠管理 -->
+	<!-- dao -->
+	<bean id="donationDao" class="com.donation.dao.DonationDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="donationService" class="com.donation.service.DonationServiceImpl">
+		<property name="donationDao" ref="donationDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="donationDwr" class="com.donation.dwr.DonationDwr">
+		<property name="donationService" ref="donationService"></property>
+	</bean>
+	<!-- action -->
+	<bean id="donationAction" class="com.donation.action.DonationAction"></bean>
+	<!-- 捐赠管理报表 -->
+	<!-- dao -->
+	<bean id="donationReportDao" class="com.donation.dao.DonationReportDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="donationReportService" class="com.donation.service.DonationReportServiceImpl">
+		<property name="donationReportDao" ref="donationReportDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="donationReportDwr" class="com.donation.dwr.DonationReportDwr">
+		<property name="donationReportService" ref="donationReportService"></property>
+	</bean>
+	<!-- 承租承包 -->
+	<!-- dao -->
+	<bean id="contractingDao" class="com.contracting.dao.ContractingDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- servcie -->
+	<bean id="contractingService" class="com.contracting.service.ContractingServiceimpl">
+		<property name="contractingDao" ref="contractingDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="contractingDwr" class="com.contracting.dwr.ContractingDwr">
+		<property name="contractingService" ref="contractingService"></property>
+	</bean>
+	<!-- action -->
+	<bean id="contractingAction" class="com.contracting.action.ContractingAction"></bean>
+	<!-- 承租承包报表 -->
+	<!-- dao -->
+	<bean id="contractingReportDao" class="com.contracting.dao.ContractingReportDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- servcie -->
+	<bean id="contractingReportService" class="com.contracting.service.ContractingReportServiceImpl">
+		<property name="contractingReportDao" ref="contractingReportDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="contractingReportDwr" class="com.contracting.dwr.ContractingReportDwr">
+		<property name="contractingReportService" ref="contractingReportService"></property>
+	</bean>
+	<!-- 个体工商 -->
+	<!-- dao -->
+	<bean id="getiDao" class="com.geti.dao.GetiDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="getiService" class="com.geti.service.GetiServiceImpl">
+		<property name="getiDao" ref="getiDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="getiDwr" class="com.geti.dwr.GetiDwr">
+		<property name="getiService" ref="getiService"></property>
+	</bean>
+	<!-- action -->
+	<bean id="getiAction" class="com.geti.action.GetiAction"></bean>
+	<!-- 智能提示 -->
+	<!-- dao -->
+	<bean id="promptDao" class="com.prompt.dao.PromptDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="promptService" class="com.prompt.service.PromptServiceImpl">
+		<property name="promptDao" ref="promptDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="promptDwr" class="com.prompt.dwr.PromptDwr">
+		<property name="promptService" ref="promptService"></property>
+	</bean>
+	<!-- 个体工商报表 -->
+	<!-- dao -->
+	<bean id="getiReportDao" class="com.geti.dao.GetiReportDaoImpl">
+		<property name="sqlMapClient" ref="sqlMapClient"></property>
+	</bean>
+	<!-- service -->
+	<bean id="getiReportService" class="com.geti.service.GetiReportServiceImpl">
+		<property name="getiReportDao" ref="getiReportDao"></property>
+	</bean>
+	<!-- dwr -->
+	<bean id="getiReportDwr" class="com.geti.dwr.GetiReportDwr">
+		<property name="getiReportService" ref="getiReportService"></property>
+	</bean>
+</beans>

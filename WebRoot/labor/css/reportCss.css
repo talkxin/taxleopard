@@ -1,0 +1,30 @@
+#laborBody{
+	font-size: 12px;
+	margin: 0;
+	font-family: "Î¢ÈíÑÅºÚ"
+}
+
+.lie{
+	border: 1px solid #000000;
+}
+
+.userlist1 {
+	background-color: #E7EFD3
+}
+
+.userlist {
+	background-color: #AFEEEE
+}
+
+.list1 {
+	padding-top: 10px;
+	border-bottom: 1px solid #CCCCCC;
+}
+
+.tabContainer {
+	margin: 0 auto;
+	position: relative;
+	margin: 0 auto;
+	background-color: #e0e3e2;
+	border: 3px solid #abadac;
+}

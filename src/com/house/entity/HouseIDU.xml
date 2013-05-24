@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="hpHouseInfo" type="com.house.entity.HpHouseInfo" />
+	<typeAlias alias="hpRentalHouseInfo" type="com.house.entity.HpRentalHouseInfo" />
+	<typeAlias alias="hpRentalInfo" type="com.house.entity.HpRentalInfo" />
+	<typeAlias alias="hpTransfer" type="com.house.entity.HpTransfer" />
+	<typeAlias alias="jint" type="java.lang.Integer" />
+	<typeAlias alias="jstring" type="java.lang.String" />
+	<!-- 对房产的操作 -->
+	<procedure id="addHouse" parameterClass="hpHouseInfo"
+		resultClass="hpHouseInfo">
+  	<![CDATA[{call house_insertHouse (#uid#,#houseName#,#houseAdd#,#houseTime#,#houseType#,#houseCompensation#,#houseArea#,#houseNumber#,#houseSingleNumber#,#houseTaxedNumber#,#houseTaxType#,#houseRenovation#,#houseAllNumber#,#houseState#)}]]>
+	</procedure>
+	<update id="upHouse" parameterClass="hpHouseInfo">
+		update hp_houseInfo set
+		uid=#uid#,houseName=#houseName#,houseAdd=#houseAdd#,houseTime=#houseTime#,houseType=#houseType#,houseCompensation=#houseCompensation#,houseArea=#houseArea#,houseNumber=#houseNumber#,houseSingleNumber=#houseSingleNumber#,houseTaxedNumber=#houseTaxedNumber#,houseTaxType=#houseTaxType#,houseRenovation=#houseRenovation#,houseAllNumber=#houseAllNumber#
+		where hid=#hid#
+  	</update>
+	<update id="upHouseState" parameterClass="hpHouseInfo">
+		update hp_houseInfo set
+		houseState=#houseState# where hid=#hid#
+  	</update>
+	<delete id="delHouse" parameterClass="hpHouseInfo">
+		delete hp_houseInfo where
+		hid=#hid#
+		delete hp_Transfer where uid=#uid# and HID=#hid#
+		delete
+		hp_RentalHouseInfo where uid=#uid# and HID=#hid#
+  	</delete>
+	<!-- 房产转让信息 -->
+	<procedure id="addSellHouse" parameterClass="hpTransfer">
+  	<![CDATA[ {call house_insertTransfer (#hid#,#uid#,#taxType#,#transferNumber#,#transferTime#,#cityConstructionTax#,#taxEdNumber#,#transferTaxNumber#,#tranceferTax#,#transferEndNumber#,#intermediary#,#tax1#,#tax2#,#tax3#,#tax4#,#tax5#,#tax6#)}]]>
+	</procedure>
+	<update id="upSellHouse" parameterClass="hpTransfer">
+		update hp_Transfer set
+		hid=#hid#,uid=#uid#,taxType=#taxType#,transferNumber=#transferNumber#,transferTime=#transferTime#,cityConstructionTax=#cityConstructionTax#,taxEdNumber=#taxEdNumber#
+		where HTID=#htid#
+  	</update>
+	<delete id="delSellHouse" parameterClass="jint">
+		delete hp_Transfer
+		where hid=#hid#
+		update hp_houseInfo set houseState=0 where hid=#hid#
+	</delete>
+	<!-- 出租人信息 -->
+	<procedure id="addRentPop" parameterClass="hpRentalInfo" resultClass="hpRentalInfo">
+  	<![CDATA[{call house_insertRentalInfo (#uid#,#rentalName#,#rentalIdType#,#rentalIdNumber#,#rentalImage#)}]]>
+	</procedure>
+	<update id="upRentPop" parameterClass="hpRentalInfo">
+		update hp_RentalInfo set
+		uid=#uid#,rentalName=#rentalName#,rentalIdType=#rentalIdType#,rentalIdNumber=#rentalIdNumber#,rentalImage=#rentalImage#
+		where rid=#rid#
+  	</update>
+	<delete id="delRentPop" parameterClass="jint">
+		delete hp_RentalInfo
+		where rid=#rid#
+		delete hp_RentalHouseInfo where RID=#rid#
+  	</delete>
+	<!-- 出租房屋信息 -->
+	<procedure id="addRentInfo" parameterClass="hpRentalHouseInfo">
+  	<![CDATA[{call house_insertRentalHouseInfo (#hid#,#uid#,#rid#,#rentalRenovation#,#rentalStartTime#,#rentalEndTime#,#rentalMM#,#rentalNumber#,#rentalTaxed#,#rentalTaxType#,#rentalTaxNumber#,#rentalTax#,#rentalTaxEndNumber#)}]]>
+	</procedure>
+	<update id="upRentInfo" parameterClass="hpRentalHouseInfo">
+		update hp_RentalHouseInfo
+		set
+		hid=#hid#,uid=#uid#,rid=#rid#,rentalStartTime=#rentalStartTime#,rentalEndTime=#rentalEndTime#,rentalMM=#rentalMM#,rentalNumber=#rentalNumber#,rentalTaxed=#rentalTaxed#,rentalTaxType=#rentalTaxType#
+		where rhid=#rhid#
+  	</update>
+	<update id="upAllRant" parameterClass="hpRentalHouseInfo">
+		update hp_RentalHouseInfo
+		set rentalEndTime="rentalEndTime" where RHID=#rhid#
+	</update>
+	<procedure id="delRentInfo" parameterClass="jint">
+  	<![CDATA[{call house_deleteRentalHouseInfo(#rhid#)}]]>
+	</procedure>
+
+	<!-- 查询用户的房产 -->
+	<select id="isGetHouse" parameterClass="jint" resultClass="hpHouseInfo">
+		select * from hp_houseInfo where UID=#uid#
+  	</select>
+	<!-- 查询房产承租人 -->
+	<select id="isGetRentalInfo" parameterClass="jint" resultClass="hpRentalInfo">
+		select
+		a.RID,a.UID,a.rentalName,a.rentalIdType,a.rentalIdNumber,a.rentalImage
+		from hp_rentalInfo as a left join (SELECT DISTINCT rid,hid from
+		hp_rentalHouseInfo) as b on a.rid=b.rid where b.hid=#hid#
+  	</select>
+	<!-- 查询所有承租人 -->
+	<select id="isGetUserAllRentalInfo" parameterClass="jint"
+		resultClass="hpRentalInfo">
+		select * from hp_rentalInfo where uid=#uid#
+  	</select>
+	<!-- 查询所有房产转让信息 -->
+	<select id="isGetHouseSellAll" parameterClass="jint"
+		resultClass="hpTransfer">
+		select * from hp_Transfer where hid=#hid#
+  	</select>
+</sqlMap>

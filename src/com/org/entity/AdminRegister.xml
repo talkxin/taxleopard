@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Student">
+	<typeAlias alias="adminRegister" type="com.org.entity.AdminRegister" />
+	<!--  添加 -->
+	<insert id="addAdminRegister" parameterClass="adminRegister">
+	insert into AdminRegister values
+	(#loginUserName#,#loginDate#,#loginIP#,#loginQuitTime#)
+	</insert>
+	<!-- 查询 -->
+	<select id="findAdminRegister" resultClass="adminRegister">
+		select * from AdminRegister
+	</select>
+	<select id="selectUserByUserID" resultClass="adminRegister" parameterClass="java.lang.String">
+		select top(1) * from AdminRegister where loginUserName=#loginUserName# order by LoginID desc
+	</select>
+</sqlMap>

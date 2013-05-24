@@ -1,0 +1,300 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<package name="login" namespace="/" extends="struts-default">
+		<!-- 登录操作 -->
+		<action name="login" class="taxPayerAction" method="findLogin">
+			<result name="LoginSuccess">/personalPage/personalPage.jsp</result>
+			<result name="LoginEcho">/loginMain.jsp</result>
+			<result name="LoginError">/error.jsp</result>
+		</action>
+		<!-- 安全退出 -->
+		<action name="quit" class="taxPayerAction" method="quit">
+			<result name="quitSuccess">/success.jsp</result>
+			<result name="quitError">/error.jsp</result>
+		</action>
+		<!-- 返回首页 -->
+		<action name="reboundIndex" class="taxPayerAction" method="reboundIndex">
+			<result name="reboundIndexSuccess">/success.jsp</result>
+		</action>
+		<!-- 返回个人首页 -->
+		<action name="toPersonalPage" class="taxPayerAction" method="toPersonalPage">
+			<result name="toPersonalPage">/personalPage/personalPage.jsp</result>
+		</action>
+		<!-- 注册页面 -->
+		<action name="toRegisterPage" class="taxPayerAction" method="toRegisterPage">
+			<result name="toRegisterPage">/registerPage/register.jsp</result>
+		</action>
+
+		<!-- 添加用户 -->
+		<action name="addTaxPayer" class="taxPayerAction" method="addTaxPayer">
+			<result name="yanzhenmaError">/registerPageregister.jsp</result>
+			<result name="addTaxPayerSuccess">/success.jsp</result>
+			<result name="addTaxPayerErrror">/error.jsp</result>
+		</action>
+		<!-- 根据用户名查询用户 -->
+		<action name="findTaxPayerByName" class="taxPayerAction"
+			method="findtaxPayerByName">
+			<result name="findSuccess">/retrievePassword2.jsp</result>
+			<result name="findError">/error.jsp</result>
+		</action>
+		<!-- 跳转 -->
+		<action name="skipTaxPayer" class="taxPayerAction" method="skipTaxPayer">
+			<result name="skopSuccess">/retrievePassword3.jsp</result>
+			<result name="findError">/error.jsp</result>
+		</action>
+		<!-- 查询密码 -->
+		<action name="findResult" class="taxPayerAction" method="findResult">
+			<result name="resultSuccess">/retrievePassword4.jsp</result>
+			<result name="resultError">/error.jsp</result>
+		</action>
+		<!-- 根据id修改密码 -->
+		<action name="updPassWord" class="taxPayerAction" method="updPassWord">
+			<result name="updPassWordSuccess">/success.jsp</result>
+			<result name="findError">/error.jsp</result>
+		</action>
+	</package>
+	<package name="add" extends="struts-default" namespace="/">
+		<action name="add*" class="userPartAction" method="add{1}">
+			<result name="addUserPartSuccess">/success.jsp</result>
+		</action>
+		<!-- 给用户分配功能 -->
+		<action name="addUserFunction" class="userFunctionAction"
+			method="addUserFunction">
+			<result name="addUserFunctionSuccess">/success.jsp</result>
+		</action>
+		<!-- 添加功能 -->
+		<action name="addFunction" class="functionAction" method="addFunction">
+			<result name="addFunctionSuccess">/success.jsp</result>
+		</action>
+		<!-- 添加税级 -->
+		<action name="addDuty" class="dutyAction" method="addDuty">
+			<result name="addDutySuccess">/MyJsp.jsp</result>
+		</action>
+		<!-- 添加税模块 -->
+		<action name="addDutys" class="dutysAction" method="addDutys">
+			<result name="addDutysSuccess">/success.jsp</result>
+		</action>
+		<!-- 添加新闻 -->
+		<action name="addPress" class="pressAction" method="addPress">
+			<result name="addPressSuccess">/success.jsp</result>
+		</action>
+
+		<!-- 添加备忘 -->
+		<action name="addMemo" class="memoAction" method="addMemo">
+			<result name="addMemoSuccess">/success.jsp</result>
+		</action>
+	</package>
+	<!-- 查询 -->
+	<package name="find" extends="struts-default" namespace="/find">
+		<!-- 查询功能 -->
+		<action name="findFunctions" class="functionAction" method="findFunction">
+			<result name="findFunctionSuccess">/personalPage/LoginSuccess.jsp</result>
+		</action>
+		<!-- 查询税级 -->
+		<action name="findDuty" class="dutyAction" method="findDuty">
+			<result name="findDutySuccess">/duty/findDuty.jsp</result>
+		</action>
+		<!-- 查询新闻 -->
+		<action name="findPress" class="pressAction" method="findPress">
+			<result name="findPressSuccess">/press/findPress.jsp</result>
+		</action>
+		<!-- 根据ID查询新闻 -->
+		<action name="findPressByID" class="pressAction" method="findPressByID">
+			<result name="findPressByIDSuccess">/press/press.jsp</result>
+		</action>
+		<!-- 上一篇 -->
+		<action name="findUpPress" class="pressAction" method="findUpPress">
+			<result name="findPressByIDSuccess">/press/press.jsp</result>
+			<result name="findUpPressSuccess">/press/press.jsp</result>
+			<result name="findUpPressError">/error.jsp</result>
+		</action>
+		<!-- 下一篇 -->
+		<action name="findNextPress" class="pressAction" method="findNextPress">
+			<result name="findPressByIDSuccess">/press/press.jsp</result>
+			<result name="findNextPressSuccess">/press/press.jsp</result>
+			<result name="findNextPressError">/error.jsp</result>
+		</action>
+		<!-- 分页 -->
+		<action name="page*" class="pressAction" method="page{1}">
+			<result name="findPageSuccess">/press/findPress.jsp</result>
+			<result name="findPageError">/press/findPress.jsp</result>
+		</action>
+	</package>
+	<!-- 删除 -->
+	<package name="del" extends="struts-default" namespace="/del">
+		<!-- 删除功能 -->
+		<action name="delFunctions" class="functionAction" method="delFunctions">
+			<result name="delFunctionSuccess">/success.jsp</result>
+		</action>
+		<!-- 删除税级 -->
+		<action name="delDuty" class="dutyAction" method="delDuty">
+			<result name="delDutySuccess">/success.jsp</result>
+		</action>
+	</package>
+	<!-- 更改 -->
+	<package name="upd" extends="functionAction" namespace="/upd">
+		<action name="updFUnctions" class="functionAction" method="updFunctions">
+			<result name="updFunctionSuccess">/success.jsp</result>
+		</action>
+	</package>
+	<!-- 跳转 -->
+	<package name="skip" extends="struts-default" namespace="/skip">
+		<action name="skip*" class="com.org.action.SkipAction" method="skip{1}">
+			<result name="skipAddDuty">/duty/addDuty.jsp</result>
+			<result name="skipAddDutys">/duty/addDutys.jsp</result>
+			<result name="skipAddPress">/press/addPress.jsp</result>
+		</action>
+	</package>
+	<!-- 主页 -->
+	<package name="index" extends="struts-default" namespace="/">
+		<action name="index" class="com.org.action.IndexAction" method="index">
+			<result name="index">/homePage/homePage.jsp</result>
+		</action>
+	</package>
+
+	<!-- 工资薪金action -->
+	<package name="paychex" extends="struts-default">
+		<action name="paychexin" class="paychexAction" method="isInPayChex">
+			<result name="xiangdao1">/paychex/guide/xiangdao1.jsp</result>
+			<result name="paychexMain">/paychex/open/nianfen.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+		<action name="openpaychex" class="paychexAction" method="openpaychex">
+			<result name="paychex">/paychex/main/index.jsp</result>
+		</action>
+		<action name="payxd2" class="paychexAction" method="isGotoXd2">
+			<result name="xiangdao2">/paychex/guide/xiangdao2.jsp</result>
+			<result name="paychexMain">/paychex/main/index.jsp</result>
+		</action>
+		<action name="payxd3" class="paychexAction" method="isGotoXd3">
+			<result name="xiangdao3">/paychex/guide/xiangdao3.jsp</result>
+			<result name="paychexMain">/paychex/main/index.jsp</result>
+		</action>
+		<action name="returnPay" class="paychexAction" method="isOkPay">
+			<result name="returnPayPage">/paychex/reportForm/monthWrittenStatement.jsp
+			</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+		<action name="breakPay" class="paychexAction" method="isReturnPay">
+			<result name="openPay">/paychex/open/nianfen.jsp</result>
+		</action>
+		<action name="addPay" class="paychexAction" method="isOpenPay">
+			<result name="paychexin" type="chain">paychexin</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+		<action name="toMonthWritten" class="wageReportAction" method="toMonthWritten">
+			<result name="toMonthWritten">/paychex/reportForm/monthWrittenStatement.jsp
+			</result>
+		</action>
+		<action name="toMonthPie" class="wageReportAction" method="toMonthPie">
+			<result name="toMonthPie">/paychex/reportForm/monthPieChart.jsp</result>
+		</action>
+		<action name="toMonthHg" class="wageReportAction" method="toMonthHg">
+			<result name="toMonthHg">/paychex/reportForm/monthHistogram.jsp</result>
+		</action>
+		<action name="toDataEntry" class="wageReportAction" method="toDataEntry">
+			<result name="toDataEntry">/paychex/open/nianfen.jsp</result>
+		</action>
+		<action name="toYearPie" class="wageReportAction" method="toYearPie">
+			<result name="toYearPie">/paychex/reportForm/yearPieChart.jsp</result>
+		</action>
+		<action name="toYearHg" class="wageReportAction" method="toYearHg">
+			<result name="toYearHg">/paychex/reportForm/yearHistogram.jsp</result>
+		</action>
+		<action name="toYearWritten" class="wageReportAction" method="toYearWritten">
+			<result name="toYearWritten">/paychex/reportForm/yearWrittenStatement.jsp
+			</result>
+		</action>
+	</package>
+	<!-- 劳务报酬 -->
+	<package name="labor" extends="struts-default">
+		<action name="labormain" class="laborAction" method="laborMain">
+			<result name="toLaborMain">/labor/main/laborMain.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+	</package>
+	<!-- 房产管理 -->
+	<package name="house" extends="struts-default">
+		<action name="houseMain" class="houseAction" method="houseMain">
+			<result name="tohousemain">/house/main/houseMain.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+	</package>
+	<!-- 个人首页 -->
+	<package name="personal" extends="struts-default">
+		<action name="personalMain" class="personalPageAction" method="personalMain">
+			<result name="toPersonal">/personalPage/personalPage.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+	</package>
+	<!-- 股票管理 -->
+	<package name="shares" extends="struts-default">
+		<action name="sharesMain" class="sharesAction" method="shareMain">
+			<result name="tosharemain">/share/main/shareMain.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+	</package>
+	<!-- 偶然所得 -->
+	<package name="occasional" extends="struts-default">
+		<action name="occasionalMain" class="occasionalAction" method="occasionalMain">
+			<result name="toOccasionalmain">/occasional/main/occasionalMain.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+	</package>
+	<!-- 稿酬所得 -->
+	<package name="remuneration" extends="struts-default">
+		<action name="remunerationMain" class="remunerationAction"
+			method="goMain">
+			<result name="tomain">/Remuneration/main/remuneration.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+	</package>
+	<!-- 拍卖 -->
+	<package name="auction" extends="struts-default">
+		<action name="auctionMain" class="auctionAction" method="goMain">
+			<result name="tomain">/Auction/main/Auction.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+	</package>
+	<!-- 其他所得 -->
+	<package name="otherincomeAction" extends="struts-default">
+		<action name="otherincomeMain" class="otherincomeAction"
+			method="goMain">
+			<result name="tomain">/otherincome/main/otherincome.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+	</package>
+	<!-- 特许权 -->
+	<package name="chartered" extends="struts-default">
+		<action name="charteredMain" class="charteredAction" method="goMain">
+			<result name="tomain">chartered/main/chartered.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+	</package>
+	<!-- 个人储蓄 -->
+	<package name="savings" extends="struts-default">
+		<action name="savingsMain" class="savingsAction" method="goMain">
+			<result name="tomain">savings/main/savings.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+	</package>
+	<!-- 承包承租 -->
+	<package name="contracting" extends="struts-default">
+		<action name="contractingMain" class="contractingAction"
+			method="goMain">
+			<result name="tomain">contracting/main/contracting.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+	</package>
+	<!-- 个体工商 -->
+	<package name="geti" extends="struts-default">
+		<action name="getiMain" class="getiAction" method="goMain">
+			<result name="tomain">geti/main/geti.jsp</result>
+			<result name="LoginEcho">/sessiongError.jsp</result>
+		</action>
+	</package>
+</struts>

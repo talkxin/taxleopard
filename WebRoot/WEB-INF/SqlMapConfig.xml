@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMapConfig      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map Config 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<!-- 基础建设表 -->
+	<sqlMap resource="/com/org/entity/TaxPayer.xml" />
+	<sqlMap resource="/com/org/entity/UserPart.xml" />
+	<sqlMap resource="/com/org/entity/UserFunction.xml" />
+	<sqlMap resource="/com/org/entity/Functions.xml" />
+	<sqlMap resource="/com/org/entity/Duty.xml" />
+	<sqlMap resource="/com/org/entity/Dutys.xml" />
+	<sqlMap resource="/com/org/entity/Press.xml" />
+	<sqlMap resource="/com/org/entity/AdminRegister.xml"/>
+	<sqlMap resource="/com/org/entity/RecordOfWork.xml"/>
+	<sqlMap resource="/com/org/entity/SysRecordOfWork.xml"/>
+   
+   <!--工资薪金  -->
+    <sqlMap resource="/com/paychex/entity/WageReportform.xml"/>
+   
+   	<!-- 工资薪金操作sql 刘鑫 -->
+	<sqlMap resource="/com/paychex/entity/paychexIDU.xml"/>
+	<sqlMap resource="/com/paychex/entity/payChexSelect.xml"/>
+
+   <!-- 劳务报酬 -->
+    <sqlMap resource="/com/labor/entity/LaborSelect.xml"/>
+    <sqlMap resource="/com/labor/entity/LaborIDU.xml"/>
+    
+    <!-- 房产管理 -->
+    <sqlMap resource="/com/house/entity/HouseIDU.xml"/>
+    <sqlMap resource="/com/house/entity/HouseSelect.xml"/>
+    
+    <!-- 个人首页 -->
+    <sqlMap resource="/com/org/entity/PersonalPage.xml"/>
+    
+    <!-- 股票管理 -->
+    <sqlMap resource="/com/shares/entity/sharesIDU.xml"/>
+    <sqlMap resource="/com/shares/entity/SharesSelect.xml"/>
+    <!-- 偶然所得 -->
+    <sqlMap resource="/com/occasional/entity/Occasional.xml"/>
+    <!-- 稿酬所得 -->
+    <sqlMap resource="/com/remuneration/entity/remunerationIDU.xml"/>
+    <sqlMap resource="/com/remuneration/entity/remunerationSelect.xml"/>
+    <!-- 拍卖 -->
+    <sqlMap resource="/com/auction/entity/AuctionIDU.xml"/>
+    <sqlMap resource="/com/auction/entity/AuctionSelect.xml"/>
+    <!-- 其他所得 -->
+    <sqlMap resource="/com/otherincome/entity/OtherincomeIDU.xml"/>
+    <sqlMap resource="/com/otherincome/entity/OtherincomeSelect.xml"/>
+    <!-- 特许权 -->
+    <sqlMap resource="/com/chartered/entity/charteredIDU.xml"/>
+    <sqlMap resource="/com/chartered/entity/charteredSelect.xml"/>
+    <!-- 个人储蓄 -->
+    <sqlMap resource="/com/savings/entity/savingsIDU.xml"/>
+    <sqlMap resource="/com/savings/entity/savingsSelect.xml"/>
+    <!-- 捐赠 -->
+    <sqlMap resource="/com/donation/entity/donationSelect.xml"/>
+     <!-- 承租承包 -->
+    <sqlMap resource="/com/contracting/entity/ContractIDU.xml"/>
+    <sqlMap resource="/com/contracting/entity/ContractSelect.xml"/>
+    <!-- 个体工商 -->
+    <sqlMap resource="/com/geti/entity/getiIDU.xml"/>
+    <sqlMap resource="/com/geti/entity/getiSelect.xml"/>
+    <!-- 智能提示 -->
+    <sqlMap resource="/com/prompt/entity/promptIDU.xml"/>
+</sqlMapConfig>

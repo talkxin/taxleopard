@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="jint" type="java.lang.Integer" />
+	<typeAlias alias="jstring" type="java.lang.String" />
+	<typeAlias alias="crChartered" type="com.chartered.entity.CrChartered" />
+	<typeAlias alias="crCharteredInfo" type="com.chartered.entity.CrCharteredInfo" />
+	<!-- 特许权基础操作 -->
+	<procedure id="addCrCharteredInfo" parameterClass="crCharteredInfo"
+		resultClass="crCharteredInfo">
+	<![CDATA[{call cr_addCharteredInfo(#uid#,#charteredInfoName#,#charteredInfoType#)}]]>
+	</procedure>
+	<update id="upCrCharteredInfo" parameterClass="crCharteredInfo">
+		update
+		cr_CharteredInfo set
+		uid=#uid#,charteredInfoName=#charteredInfoName#,charteredInfoType=#charteredInfoType#
+		where ciid=#ciid#
+	</update>
+	<delete id="delCrCharteredInfo" parameterClass="jint">
+		delete
+		cr_CharteredInfo where ciid=#ciid#
+		delete cr_Chartered where
+		ciid=#ciid#
+	</delete>
+	<!-- 特许权基本信息表 -->
+	<insert id="addCrChartered" parameterClass="crChartered">
+		insert into
+		cr_Chartered
+		values(#uid#,#ciid#,#charteredType#,#taxed#,#charteredStart#,#charteredEnd#,#charteredTime#,#charteredNumber#,#taxNumber#,#taxableNumber#,#payOutNumber#,#taxEdNumber#)
+	</insert>
+	<update id="upCrChartered" parameterClass="crChartered">
+		update cr_Chartered
+		set
+		uid=#uid#,ciid=#ciid#,charteredType=#charteredType#,taxed=#taxed#,charteredStart=#charteredStart#,charteredEnd=#charteredEnd#,charteredTime=#charteredTime#,charteredNumber=#charteredNumber#,taxNumber=#taxNumber#,taxableNumber=#taxableNumber#,payOutNumber=#payOutNumber#,taxEdNumber=#taxEdNumber#
+		where cid=#cid#
+	</update>
+	<delete id="delCrChartered" parameterClass="jint">
+		delete cr_Chartered
+		where cid=#cid#
+	</delete>
+	<!-- 返回用户所有特许权产品 -->
+	<select id="isGetCharteredInfo" parameterClass="jint"
+		resultClass="crCharteredInfo">
+		select * from cr_CharteredInfo where uid=#uid#
+	</select>
+</sqlMap>

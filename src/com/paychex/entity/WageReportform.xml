@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <typeAlias alias="payrollInfo" type="com.paychex.entity.PayrollInfo" />
+    <typeAlias alias="payroll" type="com.paychex.entity.Payroll" />
+	<typeAlias alias="prize" type="com.paychex.entity.Prize" />
+	<typeAlias alias="prizeType" type="com.paychex.entity.PrizeType" />
+	<typeAlias alias="prizeJoin" type="com.paychex.entity.PrizeJoin" />
+	<typeAlias alias="prizeMonth" type="com.paychex.entity.PrizeMonth" />
+	<typeAlias alias="subsidy" type="com.paychex.entity.Subsidy" />
+	<typeAlias alias="subsidyType" type="com.paychex.entity.SubsidyType" />
+	<typeAlias alias="subsidyJoin" type="com.paychex.entity.SubsidyJoin" />
+	<typeAlias alias="subsidyMonth" type="com.paychex.entity.SubsidyMonth" />
+	<typeAlias alias="bonus" type="com.paychex.entity.Bonus" />
+	<typeAlias alias="bonusMonth" type="com.paychex.entity.BonusMonth" />
+	<typeAlias alias="insurance" type="com.paychex.entity.Insurance" />
+	<typeAlias alias="payrollMonth" type="com.paychex.entity.PayrollMonth" />
+	<typeAlias alias="deduction" type="com.paychex.entity.Deduction" />
+	<typeAlias alias="deductionMonth" type="com.paychex.entity.DeductionMonth" />
+	<typeAlias alias="cooinsurance" type="com.paychex.entity.Cooinsurance" />
+	<typeAlias alias="wageYear" type="com.paychex.entity.WageYear" />
+	<typeAlias alias="wageMonth" type="com.paychex.entity.WageMonth" />
+	
+	<!-- 查询用户某年工资汇总 -->
+	<select id="findWageYear" resultClass="wageYear" parameterClass="wageYear">
+		select * from pc_WageYear where TaxID=#taxID# and InPayYear=#inPayYear# 
+		        
+	</select>
+	<!-- 查询用户某月所有奖金 -->
+	<select id="findPrizeJoin" resultClass="prizeJoin" parameterClass="prizeJoin">
+		select * from pc_PrizeJoin where UID=#uid# and left(PrizeInDay,7)=#prizeInDay#
+	</select>
+    <!-- 查询用户某年各月奖金和 -->
+	<select id="findPrizeMonth" resultClass="prizeMonth" parameterClass="prizeMonth">
+		select * from pc_PrizeMonth 
+		 where UID=#uid# and PrizeYear=#prizeYear#
+	</select>
+	
+    <!-- 查询用户某月所有补贴 -->
+	<select id="findSubsidyJoin" resultClass="subsidyJoin" parameterClass="subsidyJoin">
+		select * from pc_SubsidyJoin where UID=#uid# and left(SubsidyInDay,7)=#subsidyInDay#
+	</select>
+	<!-- 查询用户某年各月补贴和 -->
+	<select id="findSubsidyMonth" resultClass="subsidyMonth" parameterClass="subsidyMonth">
+		select * from pc_SubsidyMonth 
+		 where UID=#uid# and SubsidyYear=#subsidyYear#
+	</select>
+	
+	<!-- 查询用户某月所有分红 -->
+	<select id="findBonus" resultClass="bonus" parameterClass="bonus">
+		select * from pc_bonus where UID=#uid# and left(BonusInDay,7)=#bonusInDay#
+	</select>
+	<!-- 查询用户某年各月分红和 -->
+	<select id="findBonusMonth" resultClass="bonusMonth" parameterClass="bonusMonth">
+		select * from pc_BonusMonth 
+		 where UID=#uid# and BonusYear=#bonusYear#
+	</select>
+	
+	<!-- 查询用户社保 -->
+	<select id="findInsurance" resultClass="insurance" parameterClass="insurance">
+		select UID,PensionP,MedicalP,UnemploymentP,HousingP,SUM(CAST(PensionP AS float) + CAST(MedicalP AS float) + CAST(UnemploymentP AS float) 
+                   + CAST(HousingP AS float)) AS InsSum
+               from pc_insurance where UID=#uid#
+               group by UID,PensionP,MedicalP,UnemploymentP,HousingP 
+	</select>
+
+	
+	<!-- 查询用户某月所有扣除项 -->
+	<select id="findDeduction" resultClass="deduction" parameterClass="deduction">
+		select * from pc_deduction where UID=#uid# and left(DeductionDay,7)=#deductionDay#
+	</select>
+	<!-- 查询用户某年各月扣除项和 -->
+	<select id="findDeductionMonth" resultClass="deductionMonth" parameterClass="deductionMonth">
+		select * from pc_DeductionMonth
+		 where UID=#uid# and DeductionYear=#deductionYear#
+	</select>
+    <!-- 查询用户某年各月的商业保险 -->
+	<select id="findCooinsurance" resultClass="cooinsurance" parameterClass="cooinsurance">
+		select coo.UID,coo.insuranceDate,coo.insuranceNumber from pc_Cooinsurance AS coo RIGHT OUTER JOIN
+                      dbo.pc_payroll ON LEFT(dbo.pc_payroll.InPayDay, 7) = LEFT(coo.insuranceDate, 7)
+        where coo.UID=#uid# and coo.insuranceDate like #insuranceDate#
+	</select>
+	
+	<!-- 查询用户某年各月的基础工资/纳税额 -->
+	<select id="findPayrollMonth" resultClass="payrollMonth" parameterClass="payrollMonth">
+		select * from pc_PayrollMonth 
+		 where UID=#uid# and PayrollYear=#payrollYear#
+	</select>
+	
+	
+    <!-- 查询用户某月工资汇总 -->
+    <select id="findWageMonth" resultClass="wageMonth" parameterClass="wageMonth">      
+       
+       select * from pc_WageMonth where TaxID=#taxID# and PayMonth like #payMonth# 
+		      
+    </select>
+	<!-- 查询用户某年商业保险汇总 -->
+	<parameterMap class="java.util.HashMap" id="cooMap">
+		<parameter property="year" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+    	<parameter property="uid" jdbcType="INT" javaType="java.lang.Integer" mode="IN"/>
+    	<parameter property="zsybx" jdbcType="VARCHAR" javaType="java.lang.String" mode="OUT"/>
+    </parameterMap>
+    
+    <procedure id="findCoo" parameterMap="cooMap">
+    	 <![CDATA[{call paychex_cooSum (?,?,?)}]]>
+    </procedure>	
+    
+    <!-- 查询用户某月商业保险 -->
+    <parameterMap class="java.util.HashMap" id="cooMonthMap">
+        <parameter property="uid" jdbcType="INT" javaType="java.lang.Integer" mode="IN"/>
+		<parameter property="month" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+    	<parameter property="sybx" jdbcType="VARCHAR" javaType="java.lang.String" mode="OUT"/>
+    </parameterMap>
+    
+    <procedure id="findCooMonth" parameterMap="cooMonthMap">
+    	 <![CDATA[{call paychex_cooMonthSum (?,?,?)}]]>
+    </procedure>	
+</sqlMap>

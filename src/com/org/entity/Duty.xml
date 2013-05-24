@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>	
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Student">
+	<typeAlias alias="duty" type="com.org.entity.Duty" />
+	<!-- 查询税法 -->
+	<select id="findDuty" resultClass="duty">
+		select * from Duty
+	</select>
+	<select id="findDutyByID" resultClass="duty" parameterClass="java.lang.Integer">
+		select * from Duty where DutyID=#dueyID#
+	</select>
+	<!-- 删除税法 -->
+	<delete id="delDuty" parameterClass="Integer">
+		delete from Duty where
+		DutyID=#dutyID#
+	</delete>
+	<!-- 添加税法-->
+	<insert id="addDuty" parameterClass="duty">
+		insert into Duty values
+		(#dutyName#,#dutyCess#,#dutyQuick#,#dutyPrice#,#dutySales#,#fuormulaID#,#dutysID#)
+	</insert>
+	<!-- 更改税法-->
+	<update id="updDuty" parameterClass="duty">
+		update Duty set
+		DutyName=#dutyName#,DutyCess=#dutyCess#,DutyQuick=#dutyQuick#
+		,DutyPrice=#dutyPrice#,DutySales=#dutySales#,FuormulaID=#fuormulaID#,DutysID=#dutysID#
+		where DutyID=#dutyID# 
+	</update>
+</sqlMap>

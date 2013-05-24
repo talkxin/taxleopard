@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<maps>
+<!-- project 是name 和 value 的映射 name代表字段value代表引擎映射计算的表头是
+配置规则的重要文件之一
+ -->
+ 	<!-- 工资薪金 -->
+	<project name="taxDomicle" value="nation"/><!-- 国家 -->
+	<project name="taxDomicle" value="city"/><!-- 城市 -->
+	<project name="dutysName" value="moduleName"/><!-- 模块名 -->
+	<project name="taxNationality" value="nationality"/><!-- 国籍 -->
+	<project name="allDate" value="userTime"/><!-- 用户获取该财产月份 -->
+	<project name="" value="taxed"/><!-- 收入是否含税 -->
+	<project name="taxIndustry" value="trade"/><!-- 职业 -->
+	<project name="" value="postType"/><!-- 职位 -->
+	<project name="dateAndYeardate" value="chinaDays"/><!-- 在华时间 -->
+	<project name="dateAndYearYear" value="chinaYears"/><!-- 在华天数 -->
+	<project name="" value="onChinaDays"/><!-- 当月在华天数 -->
+	<project name="" value="theMonthday"/><!-- 境内收入 -->
+	<project name="" value="paychexW"/><!-- 境外收入 -->
+	<project name="churchyard" value="paychexAll"/><!-- 境内外总收入 -->
+	<project name="" value="isUserTax"/><!-- 已纳税额 -->
+	<project name="payDuty" value="thePayChexTaxResult"/><!-- 应纳税额 -->
+	<project name="dutyCess" value="taxrald"/><!-- 税率 -->
+	<project name="dutyQuick" value="deduct"/><!-- 速算扣除数 -->
+	<project name="" value="yingna"/><!-- 应纳税所得额 -->
+	<project name="" value="yearPaychex"/><!-- 年终一次性收入 -->
+</maps>

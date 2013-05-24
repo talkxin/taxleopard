@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="jint" type="java.lang.Integer" />
+	<typeAlias alias="jstring" type="java.lang.String" />
+	<typeAlias alias="conContract" type="com.contracting.entity.ConContract" />
+	<typeAlias alias="conContractInfo" type="com.contracting.entity.ConContractInfo" />
+	<!-- 机构 -->
+	<procedure id="addContractInfo" parameterClass="conContractInfo"
+		resultClass="conContractInfo">
+	<![CDATA[{call cr_addContractInfo(#uid#,#contractName#,#contractCoType#,#allPay#)}]]>
+	</procedure>
+	<update id="upContractInfo" parameterClass="conContractInfo">
+		update cr_addContractInfo set
+		uid=#uid#,contractName=#contractName#,contractCoType=#contractCoType#,allPay=#allPay#
+	</update>
+	<delete id="delContractInfo" parameterClass="jint">
+		delete cr_addContractInfo where ciid=#ciid#
+		delete con_Contract where ciid=#ciid#
+	</delete>
+	<!-- 信息 -->
+	<insert id="addContract" parameterClass="conContract">
+		insert into con_Contract values(#uid#,#ciid#,#contractType#,#contractType2#,#taxed#,#contractStart#,#contractEnd#,#contractAllTime#,#contractNumber1#,	#contractNumber2#,#taxNumber#,#taxableNumber#,#payOutNumber#,#taxEdNumber#)
+	</insert>
+	<update id="upContract" parameterClass="conContract">
+		update con_Contract set
+		uid=#uid#,ciid=#ciid#,contractType=#contractType#,contractType2=#contractType2#,taxed=#taxed#,contractStart=#contractStart#,contractEnd=#contractEnd#,contractAllTime=#contractAllTime#,contractNumber1=#contractNumber1#,contractNumber2=#contractNumber2#,taxNumber=#taxNumber#,taxableNumber=#taxableNumber#,payOutNumber=#payOutNumber#,taxEdNumber=#taxEdNumber#
+	</update>
+	<delete id="delContract" parameterClass="jint">
+		delete con_Contract where cid=#cid#
+	</delete>
+	<!-- 返回所有机构 -->
+	<select id="isGetUserContractInfo" parameterClass="jint"
+		resultClass="conContractInfo">
+		select * from con_ContractInfo where uid=#uid#
+	</select>
+</sqlMap>

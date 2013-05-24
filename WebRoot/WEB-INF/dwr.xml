@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE dwr PUBLIC "-//GetAhead Limited//DTD Direct Web Remoting 1.0//EN" "http://www.getahead.ltd.uk/dwr/dwr10.dtd">
+<dwr>
+	<allow>
+
+		<!--工资 -->
+		<create javascript="dwrTest" creator="spring">
+			<param name="beanName" value="wageReportDwr"></param>
+		</create>
+
+		<convert match="com.paychex.entity.PrizeJoin" converter="bean"></convert>
+		<convert match="com.paychex.entity.PrizeMonth" converter="bean"></convert>
+		<convert match="com.paychex.entity.SubsidyJoin" converter="bean"></convert>
+		<convert match="com.paychex.entity.SubsidyMonth" converter="bean"></convert>
+		<convert match="com.paychex.entity.Bonus" converter="bean"></convert>
+		<convert match="com.paychex.entity.BonusMonth" converter="bean"></convert>
+		<convert match="com.paychex.entity.Insurance" converter="bean"></convert>
+		<convert match="com.paychex.entity.PayrollMonth" converter="bean"></convert>
+		<convert match="com.paychex.entity.Deduction" converter="bean"></convert>
+		<convert match="com.paychex.entity.DeductionMonth" converter="bean"></convert>
+		<convert match="com.paychex.entity.Cooinsurance" converter="bean"></convert>
+		<convert match="com.paychex.entity.WageYear" converter="bean"></convert>
+		<convert match="com.paychex.entity.WageMonth" converter="bean"></convert>
+
+		<!-- 工资薪金添加系列 -->
+		<create creator="spring" javascript="paychexD">
+			<param name="beanName" value="paychexDwr" />
+		</create>
+
+
+
+		<convert match="com.org.entity.OrgNation" converter="bean"></convert>
+		<convert match="com.org.entity.OrgProvince" converter="bean"></convert>
+		<convert match="com.org.entity.OrgCity" converter="bean"></convert>
+		<convert match="com.paychex.entity.PcPayrollInfo" converter="bean"></convert>
+		<convert match="com.paychex.entity.IsCityToProvinceToNation"
+			converter="bean"></convert>
+		<convert match="com.paychex.entity.PcPrizeType" converter="bean"></convert>
+		<convert match="com.paychex.entity.PcSubsidyType" converter="bean"></convert>
+		<convert match="com.paychex.entity.PcPrize" converter="bean"></convert>
+		<convert match="com.paychex.entity.IsGetPrize" converter="bean"></convert>
+		<convert match="com.paychex.entity.IsGetSubsidy" converter="bean"></convert>
+		<convert match="com.paychex.entity.PcSubsidy" converter="bean"></convert>
+		<convert match="com.paychex.entity.PcBonus" converter="bean"></convert>
+		<convert match="com.paychex.entity.PcInsurance" converter="bean"></convert>
+		<convert match="com.paychex.entity.PcCooinsurance" converter="bean"></convert>
+		<convert match="com.paychex.entity.PcDeduction" converter="bean"></convert>
+		<convert match="com.paychex.entity.PcRetired" converter="bean"></convert>
+		<convert match="com.paychex.entity.PcIndustry" converter="bean"></convert>
+
+		<!-- 劳务报酬 -->
+		<create javascript="laborReportD" creator="spring">
+			<param name="beanName" value="laborReportDwr"></param>
+		</create>
+		<convert match="com.labor.entity.LsLaborYear" converter="bean"></convert>
+		<convert match="com.labor.entity.LsLaborItem" converter="bean"></convert>
+		<convert match="com.labor.entity.LsLaborMonth" converter="bean"></convert>
+		<convert match="com.labor.entity.LsLaborInfo" converter="bean"></convert>
+		<convert match="com.labor.entity.LsLaborService" converter="bean"></convert>
+		<convert match="com.labor.entity.LsLaborCooItem" converter="bean"></convert>
+
+		<create javascript="laborServiceDwr" creator="spring">
+			<param name="beanName" value="laborServiceDwr"></param>
+		</create>
+
+		<!-- 房产管理 -->
+		<create javascript="houseData" creator="spring">
+			<param name="beanName" value="houseDataDwr"></param>
+		</create>
+		<convert match="com.house.entity.HpHouseInfo" converter="bean"></convert>
+		<convert match="com.house.entity.HpRentalHouseInfo" converter="bean"></convert>
+		<convert match="com.house.entity.HpRentalInfo" converter="bean"></convert>
+		<convert match="com.house.entity.HpTransfer" converter="bean"></convert>
+		<!-- 房产报表 -->
+		<create javascript="houseReportD" creator="spring">
+			<param name="beanName" value="houseReportDwr"></param>
+		</create>
+		<convert match="com.house.entity.IsRentalHouseInfo" converter="bean"></convert>
+
+		<!-- 个人首页 -->
+		<create javascript="personalPageD" creator="spring">
+			<param name="beanName" value="personalPageDwr"></param>
+		</create>
+		<convert match="com.org.entity.PeoPersonalPage" converter="bean"></convert>
+
+		<!-- 偶然所得 -->
+		<create javascript="occasionalD" creator="spring">
+			<param name="beanName" value="occasionalDataDwr"></param>
+		</create>
+		<convert match="com.occasional.entity.LuckOccasional"
+			converter="bean"></convert>
+		<convert match="com.occasional.entity.LuckOccasionalInfo"
+			converter="bean"></convert>
+		<convert match="com.occasional.entity.IsOccasional" converter="bean"></convert>
+		<!-- 股票管理 -->
+		<create javascript="sharesData" creator="spring">
+			<param name="beanName" value="sharesDataDwr"></param>
+		</create>
+		<convert match="com.shares.entity.ShSharesIn" converter="bean"></convert>
+		<convert match="com.shares.entity.ShSharesInfo" converter="bean"></convert>
+		<convert match="com.shares.entity.ShSharesOut" converter="bean"></convert>
+		<convert match="com.shares.entity.ShSharesPrice" converter="bean"></convert>
+		<!-- 股票报表 -->
+		<create javascript="sharesReportD" creator="spring">
+			<param name="beanName" value="sharesReportDwr"></param>
+		</create>
+		<convert match="com.shares.entity.ShIsGetFirstShare"
+			converter="bean"></convert>
+		<convert match="com.shares.entity.ShIsGetShareIn" converter="bean"></convert>
+		<convert match="com.shares.entity.ShIsGetShareOut" converter="bean"></convert>
+		<!-- 稿酬所得 -->
+		<create javascript="remunerationData" creator="spring">
+			<param name="beanName" value="remunerationDataDwr"></param>
+		</create>
+		<convert match="com.remuneration.entity.RePressType"
+			converter="bean"></convert>
+		<convert match="com.remuneration.entity.RePublish" converter="bean"></convert>
+		<convert match="com.remuneration.entity.ReRemunerationInfo"
+			converter="bean"></convert>
+		<!-- 稿酬报表 -->
+		<create javascript="remuD" creator="spring">
+			<param name="beanName" value="remunerationReportDwr"></param>
+		</create>
+		<convert match="com.remuneration.entity.ReIsGetRemu"
+			converter="bean"></convert>
+		<convert match="com.remuneration.entity.ReIsGetAllRemu"
+			converter="bean"></convert>
+		<!-- 拍卖 -->
+		<create javascript="AuctionData" creator="spring">
+			<param name="beanName" value="auctionDwr"></param>
+		</create>
+		<convert match="com.auction.entity.AcAuction" converter="bean"></convert>
+		<!-- 拍卖报表 -->
+		<create javascript="auctionD" creator="spring">
+			<param name="beanName" value="auctionReportDwr"></param>
+		</create>
+		<!-- 其他所得 -->
+		<create javascript="OtherincomeData" creator="spring">
+			<param name="beanName" value="otherincomeDwr"></param>
+		</create>
+		<convert match="com.otherincome.entity.OiOtherincome"
+			converter="bean"></convert>
+		<!-- 其他所得报表 -->
+		<create javascript="otherincomeD" creator="spring">
+			<param name="beanName" value="otherIncomeReportDwr"></param>
+		</create>
+		<!-- 特许权 -->
+		<create javascript="CharteredData" creator="spring">
+			<param name="beanName" value="charteredDwr"></param>
+		</create>
+		<convert match="com.chartered.entity.CrChartered" converter="bean"></convert>
+		<convert match="com.chartered.entity.CrCharteredInfo"
+			converter="bean"></convert>
+		<!-- 特许权报表 -->
+		<create javascript="charteredD" creator="spring">
+			<param name="beanName" value="charteredReportDwr"></param>
+		</create>
+		<convert match="com.chartered.entity.CrIsGetChartered"
+			converter="bean"></convert>
+		<!-- 个人储蓄 -->
+		<create javascript="SavingsData" creator="spring">
+			<param name="beanName" value="savingsDwr"></param>
+		</create>
+		<convert match="com.savings.entity.SaSavings" converter="bean"></convert>
+		<convert match="com.savings.entity.SaSavingsInfo" converter="bean"></convert>
+		<convert match="com.savings.entity.SaInterest" converter="bean"></convert>
+		<!-- 个人储蓄报表 -->
+		<create javascript="savingsD" creator="spring">
+			<param name="beanName" value="savingsReportDwr"></param>
+		</create>
+		<convert match="com.savings.entity.SaIsGetSavings" converter="bean"></convert>
+		<!-- 捐赠报表 -->
+		<create javascript="donationD" creator="spring">
+			<param name="beanName" value="donationReportDwr"></param>
+		</create>
+		<convert match="com.donation.entity.JzIsGetDonation"
+			converter="bean"></convert>
+		<!-- 承租承包 -->
+		<create javascript="ContractingData" creator="spring">
+			<param name="beanName" value="contractingDwr"></param>
+		</create>
+		<convert match="com.contracting.entity.ConContractInfo"
+			converter="bean"></convert>
+		<convert match="com.contracting.entity.ConContract" converter="bean"></convert>
+		<!-- 承租承包报表 -->
+		<create javascript="contractD" creator="spring">
+			<param name="beanName" value="contractingReportDwr"></param>
+		</create>
+		<convert match="com.contracting.entity.ConIsGetContract"
+			converter="bean"></convert>
+		<!-- 个体工商 -->
+		<create javascript="getiData" creator="spring">
+			<param name="beanName" value="getiDwr"></param>
+		</create>
+		<convert match="com.geti.entity.GtGetigongshang" converter="bean"></convert>
+		<!-- 个体工商报表 -->
+		<create javascript="getiD" creator="spring">
+			<param name="beanName" value="getiReportDwr"></param>
+		</create>
+		<!-- 智能提示 -->
+		<create javascript="promptData" creator="spring">
+			<param name="beanName" value="promptDwr"></param>
+		</create>
+		<convert match="com.prompt.entity.ProPrompt" converter="bean"></convert>
+	</allow>
+</dwr>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="luckOccasional" type="com.occasional.entity.LuckOccasional" />
+	<typeAlias alias="luckOccasionalInfo" type="com.occasional.entity.LuckOccasionalInfo" />
+    <typeAlias alias="isOccasional" type="com.occasional.entity.IsOccasional" />
+    <!-- 偶然所得 -->
+	<procedure id="addOccasional" parameterClass="luckOccasional" resultClass="luckOccasional">
+  	<![CDATA[{call luck_insertOccasional (#uid#,#occasionalName#)}]]>
+	</procedure>
+	<!-- 删除某个名称下的所有偶然所得 -->
+	<delete id="delOccasional" parameterClass="java.lang.Integer">
+		delete luck_occasional
+		where oid=#oid#
+		delete luck_occasionalInfo where oid=#oid#
+  	</delete>
+  	<!-- 修改偶然所得的名称 -->
+  	<update id="upOccasional" parameterClass="luckOccasional">
+		update luck_occasional
+		set uid=#uid#,occasionalName=#occasionalName#
+		where oid=#oid#
+  	</update>
+  	
+	<!-- 偶然所得详细信息 -->
+	<insert id="addOccasionalInfo" parameterClass="luckOccasionalInfo">
+      insert into luck_occasionalInfo(oid,occasionalNumber,occasionalTime,taxed,taxableNumber,taxNumber,occasionalType) values(#oid#,#occasionalNumber#,#occasionalTime#,#taxed#,#taxableNumber#,#taxNumber#,#occasionalType#)
+    </insert>
+    <!-- 删除某个名称下的一个偶然所得 -->
+	<delete id="delOccasionalInfo" parameterClass="java.lang.Integer">
+		delete luck_occasionalInfo
+		where OIID=#oiid#
+  	</delete>
+  	<!-- 修改某个名称下的一个偶然所得 -->
+  	<update id="upOccasionalInfo" parameterClass="luckOccasionalInfo">
+		update luck_occasionalInfo
+		set oid=#oid#,occasionalNumber=#occasionalNumber#,occasionalTime=#occasionalTime#,taxed=#taxed#,taxableNumber=#taxableNumber#,taxNumber=#taxNumber#,occasionalType=#occasionalType#
+		where OIID=#oiid#
+  	</update>
+  	
+  	<!-- 查询用户的偶然所得 -->
+    <select id="isGetOccasional" resultClass="luckOccasional" parameterClass="java.lang.Integer">
+	   select * from luck_occasional where uid=#uid#
+	</select>
+    <!-- 针对某个偶然所得名称查询 -->
+    <select id="findOccaById" resultClass="isOccasional" parameterClass="isOccasional">
+	   select * from luck_isOccasion where uid=#uid# and oid=#oid#
+	</select>
+</sqlMap>

@@ -1,0 +1,602 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"> 
+<head> 
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" /> 
+<title>无标题文档</title> 
+<link type="text/css" rel="stylesheet" href="fullcalendar.css"/> 
+</head> 
+
+<body> 
+<div id="calendar"></div> 
+</body> 
+</html> 
+<!-- jquery基本库 --> 
+<script type="text/javascript" src="jquery-1.4.4.min.js"></script> 
+<!-- fullcalendar的插件 --> 
+<script type="text/javascript" src="fullcalendar.js"></script> 
+<!-- 拖拽与改变大小的插件 --> 
+<script type="text/javascript" src="jquery-ui-1.8.6.custom.min.js"></script> 
+<!-- 与google同步的插件 --> 
+<script type="text/javascript" src="gcal.js"></script> 
+<script type="text/javascript"> 
+$(function(){ 
+$("#calendar").fullCalendar({ 
+editable:true, 
+events:$.fullCalendar.gcalFeed("http://www.google.com/calendar/feeds/43091762%40qq.com/public/basic", 
+{ 
+className:'gcal-event', 
+edittable:true, 
+currentTimezone:'America/Chicago' 
+}),//与google同步。 
+//header:false, 
+header:{ 
+left:'title', 
+center:'month,basicWeek,basicDay,agendaWeek,agendaDay', 
+right:'prevYear prev today next nextYear' 
+}, 
+buttonText:{ 
+month:'月视图', 
+basicWeek:'周视图', 
+basicDay:'日视图', 
+agendaWeek:'议事周视图', 
+agendaDay:'议事日视图', 
+today:'今天' 
+}, 
+aspectRatio:2, 
+weekMode:'variable',//每周固定，月份高度不固定。fixed固定六周,liquid月份高度固定，每周高度不固定。 
+theme:false, 
+titleFormat:{ 
+month:'yyyy年MMMM', 
+week:"yyyy年MMMd日{'&#8212;'[yyyy年][MMM]d日}", 
+day:'yyyy-MM-d dddd' 
+}, 
+buttonIcons:{ 
+
+}, 
+firstDay:1,//作用周视图，默认周几开始，0星期天，1星期一。。。。默认为0 
+weekMode:'variable',//默认fixed总是显示6周的格子。liquid，variable根据月份显示4，5，6周其中一个，liquid的总体高度固定。variable格子高度固定。 
+height:650,//注意不加单位，包括header和主体部分的高度。 
+//timeFormat:'HH:mm',全部视图使用这个时间样式 
+timeFormat:{ 
+week:'HH:mm{-HH:mm}', 
+day:'HH:mm' 
+}, 
+columnFormat:{//header底下的第一行; 
+month:'dddd', 
+week:'ddd MM/dd', 
+day:'dddd MM/dd' 
+}, 
+allDayText:'全天',//allDay全天事件的文本 
+axisFormat:'HH:mm',//agenda时间轴的格式 
+allDaySlot:true,//是否显示全天，默认为true 
+monthNames:['一月','二月','三月','四月','五月','六月','七月','八月','九月','十月','十一月','十二月'], 
+monthNamesShort:['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'], 
+dayNames:['星期日','星期一','星期二','星期三','星期四','星期五','星期六'], 
+dayNamesShort:['周日','周一','周二','周三','周四','周五','周六'], 
+firstHour:0,//默认是6，只对agenda视图有效果 
+defaultEventMinutes:120,//如果事件没有结束时间，默认120分钟长度 
+viewDisplay:function(view){ 
+//view.visStart是包括灰色的日期 
+//view.start不包括灰色的日期 
+alert(view.visStart+"------"+view.start); 
+}, 
+dayClick:function(date,allDay,jsEvent,view){ 
+alert("视图名:"+view.name); 
+alert("当前时间:"+date); 
+alert("是否全天事件:"+allDay); 
+alert("javascript针对的事件:"+jsEvent.clientX); 
+}, 
+eventClick:function(event,jsEvent,view){ 
+alert("针对点击的事件名称:"+event.title); 
+alert("针对javascript的事件:"+jsEvent.clientX); 
+alert("视图名:"+view.name); 
+if(event.url){//当点击事件的时候，如果时间有url属性，默认跳转到url,通过return false来阻止默认行为。 
+window.open(event.url); 
+return false; 
+} 
+}, 
+/*eventMouseover:function(event,jsEvent,view){ 
+alert("鼠标经过某个事件的标题"+event.title); 
+alert("鼠标经过某个事件位置"+jsEvent.clientX); 
+alert("鼠标经过某个事件视图名称"+view.title); 
+}, 
+eventMouseout:functin(event,jsEvent,view){ 
+},*/ 
+selectable:true,//选择的时候高亮 
+selectHelper:true,//只对agenda有效果 
+/* 
+selectHelper:function(start,end){ 
+//alert(start); 
+},*/ 
+unselectAuto:true,//是否清除高度选择的部分。默认为true 
+events:[ 
+{ 
+title:'event1', 
+start:'2010-12-22 14:30:00', 
+end:'2010-12-25 19:00:00', 
+url:'http://www.google.com', 
+allDay:false 
+} 
+] 
+}); 
+}) 
+</script>
+
+1.与google日历连接，别忘记加入<script type='text/javascript' src='js/gcal.js'/>
+
+events: $.fullCalendar.gcalFeed
+ ("http://www.google.com/calendar/feeds/xuqi86@gmail.com/private-660ae86cc26345cff3430480e8eea4bb/basic",
+  {
+   className:'gcal-event',
+   editable:true,
+   currentTimezone:'Asia/Shanghai'
+  }
+ )
+
+2.表头信息
+agenda带有具体的时间格子
+month,basicWeek,basicDay,agendaWeek,agendaDay 是5种不同的视图
+空格和,的区别
+
+header:{
+ left:   'month,basicWeek,basicDay,agendaWeek,agendaDay',
+ center: 'title',
+ right:  'prevYear,prev,today,next,nextYear'
+ }
+
+3.是否使用 jquery的主题(我用的是start主题)
+<link type="text/css" href="css/start/jquery-ui-1.7.2.custom.css" rel="stylesheet" /> 
+<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+<script type='text/javascript' src='js/jquery.js'>
+
+theme:true
+
+4.
+buttonText:{
+ prev:     '昨天',
+ next:     '明天',
+ prevYear: '去年',
+ nextYear: '明年',
+ today:    '今天',
+ month:    '月',
+ week:     '周',
+ day:      '日'
+ }
+
+5.每周的第一天是哪天
+Sunday=0, Monday=1, Tuesday=2, etc.
+
+firstDay:1
+
+6.日期从右向左显示...不知道什么时候会这么用
+isRTL:false
+
+7.是否显示周末
+weekends:true
+
+8.在月视图里显示周的模式，因为可能每月周数不同，所以月视图高度不一定，注意引号
+fixed 固定显示6周高，高度永远保持不变
+liquid 不固定周数，周高度可变化
+variable 不固定周数，但高度固定
+
+weekMode:'fixed'
+
+9.日历高度,包括表头
+height: 850
+内容高度，不包括表头
+contentHeight: 600
+
+10.单元格宽与高度的比值
+注意：此属性不能与日历高度同时存在
+
+aspectRatio: 1.35
+
+11.切换视图的时候要执行的操作
+view是一个对象，后面将说道具体的属性
+
+viewDisplay:function(view){}
+
+12.窗口大小变化时执行的操作
+windowResize: function(view){}
+
+13.把日历绑定到一个id的东西上
+$('#id').fullCalendar('render');
+
+14.销毁id日历
+把日历回复到初始化前，删除了所有元素，时间，和初始化数据
+$('#id').fullCalendar('destroy');
+
+15.默认显示的视图，注意引号
+defaultView:'month'
+
+16.view对象的属性
+name: 包括month,basicWeek,basicDay,agendaWeek,agendaDay
+title: 标题内容(例如"September 2009" or "Sep 7 - 13 2009")
+start:Date类型, 该view下的第一天.
+end:Date类型, 该view下的最后一天.  由于是一个闭合的值, 所以, 比如在month view下, 10月这个月份, 那么end对应的应该是11月的第一天.
+visStart:Date类型. 在该view下第一个可以访问的day. month view下, 该值是当月的第一天, week view下, 则通常和start一致.
+visEnd: Date类型, 最后一个可访问的day
+
+17.集中设定初始化值
+可以设置的属性有 dragOpacity, titleFormat, columnFormat, and timeFormat
+被应用的视图有
+{
+    month:      // month view
+    week:       // basicWeek & agendaWeek views
+    day:        // basicDay & agendaDay views
+
+    agenda:     // agendaDay & agendaWeek views
+    agendaDay:  // agendaDay view
+    agendaWeek: // agendaWeek view
+
+    basic:      // basicWeek & basicDay views
+    basicWeek:  // basicWeek view
+    basicDay:   // basicDay view
+
+    '':         // (an empty string) when no other properties match
+}
+
+18.取得视图对象
+.fullCalendar('getView')->View Object
+
+var view = $('#calendar').fullCalendar('getView');
+alert("The view's title is " + view.title);
+
+19.改变当前视图
+.fullCalendar('changeView',viewName)
+
+20.20里以下属性都是在agenda视图里起作用的
+在agenda开头的视图里，是否显示最上面all-day那一栏
+allDaySlot:true
+
+默认的文字:
+allDayText:'今天的任务'
+
+左边那一列时间的格式:
+axisFormat:'h(:mm)tt'
+()表示整点就不显示里面的内容
+
+    支持的格式化占位符
+ 1. s: 秒
+ 2. ss: 秒, 两位
+ 3. m: 分钟
+ 4. mm: 分钟, 两位
+ 5. h: 小时, 12小时制
+ 6. hh: 小时, 12小时制, 两位
+ 7. H: 小时, 24小时制
+ 8. HH: 小时, 24小时制, 两位
+ 9. d: 日期数字
+ 10. dd: 日期数字, 两位
+ 11. ddd: 日期名称, 缩写
+ 12. dddd: 日期名称, 全名
+ 13. M: 月份数字
+ 14. MM: 月份数字, 两位
+ 15. MMM: 月份名称, 缩写
+ 16. MMMM: 月份名称, 全名
+ 17. yy: 两位的年份
+ 18. yyyy: 4位的年份
+ 19. t: 上下午加 a或者p
+ 20. tt: 上下午加am或pm
+ 21. T: 上下午加A 或者P
+ 22. TT: 上下午加AM或PM
+ 23. u: ISO8601格式
+ 24. S: 给日期加上st, nd, rd, th等后缀, 表明是第几天
+
+每行的时间间隔
+slotMinutes:10
+
+滚动条滚动到得起始时间
+firstHour: 7
+
+每天从几点起开始显示
+minTime:7
+minTime:'7:30'
+如果加上了分钟需要设置时间间隔
+
+每天显示到几点结束
+maxTime:24
+maxTime:'23:10'
+
+事件默认的时间执行长度
+defaultEventMinutes:120
+此时，如果事件对象没有指定执行多长时间，则默认执行两个小时，后面将说到事件对象
+
+21.当前日期
+year: 必须是4位数字，如果不指定，则是当前年
+month: 当前月，从0开始，如果当前年和月都未指定，则月显示为1月
+date:日期的一个月，这个属性只和周视图和日视图有关，如果没指定，并且年月也没有指定，则显示一个月的第一天
+
+以下8个关于操作日期的方法
+.fullCalendar('prev') 返回到上一个年月日，与视图的种类有关
+.fullCalendar('next')
+.fullCalendar('prevYear')
+.fullCalendar('nextYear')
+.fullCalendar('today')
+.fullCalendar( 'gotoDate', year [, month, [ date ]] )  注意月从0开始
+.fullCalendar( 'incrementDate', years [, months, [ days ]] )
+.fullCalendar( 'getDate' ) -> Date 取得一个日期对象
+
+$('#my-button').click(function() {
+    var d = $('#calendar').fullCalendar('getDate');
+    alert("The current date of the calendar is " + d);
+});
+
+22.指定默认的时间格式
+timeFormat:h(:mm)tt
+
+23.指定默认的列格式
+ 
+columnFormat:{
+    month: 'ddd',    // Mon
+    week: 'ddd M/d', // Mon 9/7
+    day: 'dddd M/d'  // Monday 9/7
+}
+
+24.标题格式化
+titleFormat:{
+    month: 'MMMM yyyy',                             // September 2009
+    week: "MMM d[ yyyy]{ '&#8212;'[ MMM] d yyyy}", // Sep 7 - 13 2009
+    day: 'dddd, MMM d, yyyy'                  // Tuesday, Sep 8, 2009
+}
+
+25.月显示的名字
+monthNames:['January', 'February', 'March', 'April', 'May', 'June', 'July',
+ 'August', 'September', 'October', 'November', 'December']
+
+monthNames:['一月','二月', '三月', '四月', '五月', '六月', '七月',
+ '八月', '九月', '十月', '十一月', '十二月']
+
+月名字的简写
+monthNamesShort:['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'
+ 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+26.星期显示的名字
+ dayNames:['Sunday', 'Monday', 'Tuesday', 'Wednesday',
+ 'Thursday', 'Friday', 'Saturday']
+
+dayNames:['星期日', '星期一', '星期二', '星期三',
+ '星期四', '星期五', '星期六']
+
+星期名字的缩写
+dayNamesShort:['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+27.4个关于鼠标的回调方法
+当点击某一天时触发此操作
+dayClick:function( date, allDay, jsEvent, view ) { }
+
+dayClick: function(date, allDay, jsEvent, view) {
+
+        if (allDay) {
+            alert('Clicked on the entire day: ' + date);
+        }else{
+            alert('Clicked on the slot: ' + date);
+        }
+
+        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+
+        alert('Current view: ' + view.name);
+
+        // change the day's background color just for fun
+        $(this).css('background-color', 'red');
+
+    }
+
+当点击某一个事件时触发此操作
+eventClick:function( event, jsEvent, view ) { }
+
+eventClick: function(calEvent, jsEvent, view) {
+
+        alert('Event: ' + calEvent.title);
+        alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+        alert('View: ' + view.name);
+
+        // change the border color just for fun
+        $(this).css('border-color', 'red');
+
+    }
+
+当鼠标悬停在一个事件上触发此操作
+eventMouseover:function( event, jsEvent, view ) { }
+
+当鼠标从一个事件上移开触发此操作
+eventMouseout:function( event, jsEvent, view ) { }
+
+28.事件对象
+fullcalendar用来存储一个日历事件信息的标准对象
+一下属性中，只有title和start是必须的
+
+id:String/Integer (optional)
+title:String
+allDay:true or false (optional)  指定是否是全天事件
+start:Date 事件开始时间，格式如下
+ IETF format (ex: "Wed, 18 Oct 2009 13:00:00 EST")
+ ISO8601 format (ex: "2009-11-05T13:15:30Z")
+end: Date (optional) 事件结束时间
+ 如果事件是一个全天事件，则结束时间包括在内
+ 如果事件不是全天事件，结束时间是0:00，则结束时间的第二天不包括在内
+url:String (optional)  当用户点击时，将会访问的网址
+className: String/Array (optional) 这个事件使用的css 类名
+editable:true or false (optional) 事件是否可编辑
+source: Array/String/Function (automatically populated) 事件源，自动指定
+除了以上属性外，你可以自己指定属性和值
+
+29.事件数组 events (as an array)
+events: [
+        {
+            title  : 'event1',
+            start  : '2010-01-01'
+        },
+        {
+            title  : 'event2',
+            start  : '2010-01-05',
+            end    : '2010-01-07'
+        },
+        {
+            title  : 'event3',
+            start  : '2010-01-09 12:30:00',
+            allDay : false // will make the time show
+        }
+    ]
+
+事件Json源 events (as a json feed)
+events: "/myfeed.php" 该URL返回一个json或数组的日程事件组, GET参数视startParam和endParam选项而定
+当用户改变视图时触发此事件，FullCalendar 将通过GET方法传递参数来确定需要哪些日程数据
+/myfeed.php?start=1262332800&end=1265011200&_=1263178646
+startParam:'start' 开始参数的名字
+endParam:'end' 结束参数的名字
+cacheParam:'_' 缓存参数的名字
+lazyFetching:true 只有当需要的时候才取得数据，先从缓存里读取数据
+
+_参数是自动加上去的，防止读缓存内容
+
+日程事件 events (as a function)
+events:function( start, end, callback ) { }
+
+events: function(start, end, callback) {
+        $.ajax({
+            url: 'myxmlfeed.php',
+            dataType: 'xml',
+            data: {
+                // our hypothetical feed requires UNIX timestamps
+                start: Math.round(start.getTime() / 1000),
+                end: Math.round(end.getTime() / 1000)
+            },
+            success: function(doc) {
+
+                var events = [];
+
+                $(doc).find('event').each(function() {
+                    event.push({
+                        title: $(this).attr('title'),
+                        start: $(this).attr('start') // will be parsed
+                    });
+                });
+
+                callback(events);
+            }
+        });
+    }
+
+30.事件源
+
+eventSources 存储数组对象，可以是Arrays/Functions/URLs
+
+eventSources: [
+        $.fullCalendar.gcalFeed("http://www.google.com/feed1"),
+        $.fullCalendar.gcalFeed("http://www.google.com/feed2")
+    ]
+
+31.日程默认为全天日程
+allDayDefault:true
+
+32.当读取ajax数据时
+loading:function( isLoading, view )
+当开始读取的时候是true,当读取完成是false
+
+33.改变日程事件
+updateEvent:
+
+eventClick: function(event, element) {
+        event.title = "CLICKED!";
+        $('#calendar').fullCalendar('updateEvent', event);
+
+    }
+日程对象可以通过回调函数被获得，比如 eventClick 或者 clientEvents的方法
+
+34.取得客户端内存中保存的日程对象
+clientEvents
+.fullCalendar( 'clientEvents' [, idOrFilter ] ) -> Array 返回一个日程对象的数组
+如果idOrFilter不写，则输出全部保存在客户端的日程对象数组
+如果为ID ，则返回所有为此ID的对象
+还可以为一个过滤function 接受一个日程对象，如果返回true，则此值包含在客户端对象组中国
+
+35.从日历中删除日程
+removeEvents 参数同上
+
+36.重新取得日程
+.fullCalendar('refetchEvents') 从所有源并且重新渲染到屏幕上
+
+37.增加一个日程源
+.fullCalendar('addEventSource',source)
+源可以是Array/URL/Function ，获取的数据可以立刻显示在日历上
+
+38.删除一个事件源
+.fullCalendar('removeEventSource',source)
+
+39.日程绑定
+eventRender.function( event, element, view ) { }
+event 是企图被渲染的日程对象
+element 是一个新建的jQuery<div>被用来渲染的，他已经在恰当的时间被创建
+
+eventRender 返回函数可以修改element，返回一个新的dom元素，用来替换被渲染的元素，或者返回false，禁止被渲染
+
+40.日程渲染后事件
+eventAfterRender:function( event, element, view ) { }
+
+41.渲染事件
+.fullCalendar('renderEvent',event[,stick])
+通常，一旦日历重新取得日程源，则原有日程将消失，当指定stick为true时，日程将永久的保存到日历上
+
+42.重新渲染所有事件
+rerenderEvents
+.fullCalendar('rerenderEvents')
+
+43.是否可以拖拽和改变大小
+editable:true
+
+44.禁止拖拽和改变大小
+disableDragging:false
+disableResizing:false
+
+45.如果拖拽不成功，多久回复原状
+dragRevertDuration:500  单位是毫秒
+
+46.拖拽不透明度
+dragOpacity:{
+ agenda:.5 //对于agenda试图
+ '':1.0   //其他视图
+}
+
+47.需要的js包
+<script type='text/javascript' src='js/ui.core.js'/>
+<script type='text/javascript' src='js/ui.draggable.js'/>
+<script type='text/javascript' src='js/ui.resizable.js'/>
+注意顺序，要把jquery.js放到这3个包前面
+
+48.拖拽事件引发的操作
+eventDragStart:function(event,jsEvent,ui,view) { }
+eventDragStop:function( event, jsEvent, ui, view ) { }
+
+49.当拖拽完成并且时间改变
+eventDrop:function( event, dayDelta, minuteDelta, allDay, revertFunc, jsEvent, ui, view ) { }
+
+dayDelta 保存日程向前或者向后移动了多少天
+minuteDelta 这个值只有在agenda视图有效，移动的时间
+allDay 如果是月视图，或者是agenda视图的全天日程，此值为true,否则为false
+
+eventDrop: function(event,dayDelta,minuteDelta,allDay,revertFunc) {
+
+        alert(
+            event.title + " was moved " +
+            dayDelta + " days and " +
+            minuteDelta + " minutes."
+        );
+
+        if (allDay) {
+            alert("Event is now all-day");
+        }else{
+            alert("Event has a time-of-day");
+        }
+
+        if (!confirm("Are you sure about this change?")) {
+            revertFunc();
+        }
+
+    }
+
+50.改变大小的事件触发的操作
+eventResizeStart:function( event, jsEvent, ui, view ) { }
+eventResizeStop:function( event, jsEvent, ui, view ) { }
+eventResize:function( event, dayDelta, minuteDelta, revertFunc, jsEvent, ui, view ) { }
+

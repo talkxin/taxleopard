@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    <sqlMap namespace="paychexIDU">
+    <!-- 嵌入实体类 -->
+    	<typeAlias alias="pcBonus" type="com.paychex.entity.PcBonus"/>
+    	<typeAlias alias="pcCooinsurance" type="com.paychex.entity.PcCooinsurance"/>
+    	<typeAlias alias="pcDeduction" type="com.paychex.entity.PcDeduction"/>
+    	<typeAlias alias="pcFrontier" type="com.paychex.entity.PcFrontier"/>
+    	<typeAlias alias="pcIndustry" type="com.paychex.entity.PcIndustry"/>
+    	<typeAlias alias="pcInsurance" type="com.paychex.entity.PcInsurance"/>
+    	<typeAlias alias="pcPayroll" type="com.paychex.entity.PcPayroll"/>
+    	<typeAlias alias="pcPayrollInfo" type="com.paychex.entity.PcPayrollInfo"/>
+    	<typeAlias alias="pcPrize" type="com.paychex.entity.PcPrize"/>
+    	<typeAlias alias="pcPrizeType" type="com.paychex.entity.PcPrizeType"/>
+    	<typeAlias alias="pcRetired" type="com.paychex.entity.PcRetired"/>
+    	<typeAlias alias="pcRetirement" type="com.paychex.entity.PcRetirement"/>
+    	<typeAlias alias="pcSubsidy" type="com.paychex.entity.PcSubsidy"/>
+    	<typeAlias alias="pcSubsidyType" type="com.paychex.entity.PcSubsidyType"/>
+    	<typeAlias alias="pcFrontier" type="com.paychex.entity.PcFrontier"/>
+    	<typeAlias alias="isGetPrize" type="com.paychex.entity.IsGetPrize"/>
+    	<typeAlias alias="isGetSubsidy" type="com.paychex.entity.IsGetSubsidy"/>
+    	
+    	
+    	<!-- 参照用Map -->
+    	<parameterMap class="java.util.HashMap" id="canMap">
+    	<parameter property="UID" jdbcType="INT" javaType="java.lang.Integer" mode="IN"/>
+    	<parameter property="inTime" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+    	<parameter property="outTime" jdbcType="VARCHAR" javaType="java.lang.String" mode="IN"/>
+    	<parameter property="hs" jdbcType="INT" javaType="java.lang.Integer" mode="OUT"/>
+    	</parameterMap>
+    	
+    	<!-- 添加工资薪金 -->
+    	<parameterMap class="java.util.HashMap" id="payMap">
+    	<parameter property="uid" javaType="java.lang.Integer" jdbcType="INT" mode="IN"/>
+    	<parameter property="inTime" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN"/>
+    	</parameterMap>
+    	
+    	
+    	<!-- 开始进行增删改操作 -->
+    	<!-- 向导1 -->
+    	<insert id="xiangdao" parameterClass="pcPayrollInfo">
+    	insert into pc_payrollInfo(UID,industry,industryXz,userNation) values(#uid#,#industry#,#industryXz#,#userNation#)
+    	</insert>
+    	<update id="upxiangdao" parameterClass="pcPayrollInfo">
+    	update pc_payrollInfo set industry=#industry#,industryXz=#industryXz#,userNation=#userNation#
+    	</update>  	
+    	
+    	<insert id="addPayrollInfo" parameterClass="pcPayrollInfo">
+    	insert into pc_payrollInfo values(#uid#,#industry#,#industryXz#,#userNation#,#companyName#,#companType#,#companyAdd#,#payDay#,#payDay2#,#incomeDay#,#payType#,#payNumber#)
+    	</insert>
+    	<update id="upPayrollInfo" parameterClass="pcPayrollInfo">
+    	update pc_payrollInfo set industry=#industry#,industryXZ=#industryXz#,userNation=#userNation#,companyName=#companyName#,companType=#companType#,companyAdd=#companyAdd#,payDay=#payDay#,payDay2=#payDay2#,incomeDay=#incomeDay#,payType=#payType#,payNumber=#payNumber# where UID=#uid#
+    	</update>
+    	<delete id="delPayrollInfo" parameterClass="pcPayrollInfo">
+    	delete from pc_payrollInfo where UID=#uid#
+    	</delete>
+    	
+    	<procedure id="addPayroll" parameterClass="pcPayroll">
+    	insert into pc_payroll values(#uid#,#inPayDay#,#payInNumber#,#taxableNumber#,#taxNumber#,#payOutNumber#)
+    	<!--  [CDATA[{call paychex_insertPayroll (#uid#,#inPayDay#,#payInNumber#)}]] -->
+    	</procedure>
+    	<update id="upPayroll" parameterClass="pcPayroll">
+    	update pc_payroll set taxableNumber=#taxableNumber#,taxNumber=#taxNumber#,payOutNumber=#payOutNumber# where UID=#uid# and inPayDay=#inPayDay#
+    	</update>
+    	<update id="upPayrollType" parameterClass="pcPayroll">
+    	update pc_payroll set payType=#payType# where UID=#uid# and inPayDay=#inPayDay#
+    	</update>
+    	<update id="upPayrollTax" parameterClass="pcPayroll">
+    	update pc_payroll set taxableNumber=#taxableNumber#,taxNumber=cast(isnull(taxNumber,0) as float)+cast(isnull(#taxNumber#,0) as float),payOutNumber=#payOutNumber#,payType=#payType#,basicWage=#basicWage# where UID=#uid# and inPayDay=#inPayDay#
+    	</update>
+    	<delete id="delPayroll" parameterClass="pcPayroll">
+    	delete from pc_payroll where UID=#uid# and inPayDay like #inPayDay#
+    	</delete>
+    	
+    	<insert id="addPrizeType" parameterClass="pcPrizeType">
+    	insert into pc_prizeType values(#prizeName#,#prizeType#,#prizeTypeDate#)
+    	</insert>
+    	<update id="upPrizeType" parameterClass="pcPrizeType">
+    	update pc_prizeType set prizeName=#prizeName#,prizeType=#prizeType#,prizeTypeDate=#prizeTypeDate# where PTID=#ptid#
+    	</update>
+    	<delete id="delPrizeType" parameterClass="pcPrizeType">
+    	delete from pc_prizeType where PTID=#ptid#
+    	</delete>
+    	
+    	<insert id="addPrize" parameterClass="isGetPrize">
+    	insert into pc_prize values(#uid#,#prizeInDay#,#ptid#,#prizeNumber#,#prizeTax#)
+    	</insert>
+    	<update id="upPrize" parameterClass="pcPrize">
+    	update pc_prize set prizeNumber=#prizeNumber#,prizeTax=#prizeTax# where UID=#uid# and prizeInDay=#prizeInDay# and PTID=#ptid#
+    	</update>
+    	<delete id="delPrize" parameterClass="pcPrize">
+    	delete from pc_prize where UID=#uid# and prizeInDay=#prizeInDay#
+    	</delete>
+    	
+    	<insert id="addSubsidyType" parameterClass="pcSubsidyType">
+    	insert into pc_subsidyType values(#subsidyName#,#subsidyType#)
+    	</insert>
+    	<update id="upSubsidyType" parameterClass="pcSubsidyType">
+    	update pc_subsidyType set subsidyName=#subsidyName#,subsidyType=#subsidyType# where STID=#stid#
+    	</update>
+    	<delete id="delSubsidyType" parameterClass="pcSubsidyType">
+    	delete pc_subsidyType where STID=#stid#
+    	</delete>
+    	
+    	<insert id="addSubsidy" parameterClass="isGetSubsidy">
+    	insert into pc_subsidy values(#uid#,#subsidyInDay#,#stid#,#subsidyNumber#,#subsidyTax#)
+    	</insert>
+    	<update id="upSubsidy" parameterClass="pcSubsidy">
+    	update pc_subsidy set subsidyNumber=#subsidyNumber#,subsidyTax=#subsidyTax# where UID=#uid# and subsidyInDay=#subsidyInDay# and STID=#stid#
+    	</update>
+    	<delete id="delsubsidy" parameterClass="pcSubsidy">
+    	delete pc_subsidy where UID=#uid# and subsidyInDay=#subsidyInDay#
+    	</delete>
+    	
+    	<insert id="addInsurance" parameterClass="pcInsurance">
+    	insert into pc_insurance values(#uid#,#piid#,#insuranceType#,#housingType#,#insuranceInNumber#,#insuranceCardinal#,#housingCardinal#,#pensionB#,#pensionP#,#medicalB#,#medicalP#,#unemploymentB#,#unemploymentP#,#housingB#,#housingP#,#pensionCb#,#pensionC#,#medicalCb#,#medicalC#,#unemploymentCb#,#unemploymentC#,#industrialCb#,#industrialC#,#birthCb#,#birthC#,#housingCb#,#housingC#)
+    	</insert>
+    	<insert id="addInsurance1" parameterClass="pcInsurance">
+    	insert into pc_insurance(UID) values(#uid#)
+    	</insert>
+    	<update id="upInsurance" parameterClass="pcInsurance">
+    	update pc_insurance set insuranceType=#insuranceType#,housingType=#housingType#,insuranceInNumber=#insuranceInNumber#,insuranceCardinal=#insuranceCardinal#,housingCardinal=#housingCardinal#,pensionB=#pensionB#,pensionP=#pensionP#,medicalB=#medicalB#,medicalP=#medicalP#,unemploymentB=#unemploymentB#,unemploymentP=#unemploymentP#,housingB=#housingB#,housingP=#housingP#,pensionCb=#pensionCb#,pensionC=#pensionC#,medicalCb=#medicalCb#,medicalC=#medicalC#,unemploymentCb=#unemploymentCb#,unemploymentC=#unemploymentC#,industrialCb=#industrialCb#,industrialC=#industrialC#,birthCb=#birthCb#,birthC=#birthC#,housingCb=#housingCb#,housingC=#housingC# where UID=#uid# and PIID=#piid#
+    	</update>
+    	<delete id="delInsurance" parameterClass="pcInsurance">
+    	delete from pc_insurance where UID=#uid# and PIID=#piid#
+    	</delete>
+    	
+    	<insert id="addCooinsurance" parameterClass="pcCooinsurance">
+    	insert into pc_cooinsurance values(#uid#,#cooinsuranceName#,#cooinsuranceType#,#insuranceDate#,#insuranceNumber#,#insuranceType#)
+    	</insert>
+    	<update id="upCooinsurance" parameterClass="pcCooinsurance">
+    	update pc_cooinsurance set UID=#uid#,cooinsuranceName=#cooinsuranceName#,cooinsuranceType=#cooinsuranceType#,insuranceDate=#insuranceDate#,insuranceNumber=#insuranceNumber#
+    	</update>
+    	<delete id="delCooinsurance" parameterClass="java.lang.Integer">
+    	delete from pc_cooinsurance where UID=#uid#
+    	</delete>
+    	
+    	<insert id="addBonus" parameterClass="pcBonus">
+    	insert into pc_bonus(UID,bonusInDay,bonusNumber,bonusTax) values(#uid#,#bonusInDay#,#bonusNumber#,#bonusTax#)
+    	</insert>
+    	<update id="upBonus" parameterClass="pcBonus">
+    	update pc_bonus set bonusNumber=#bonusNumber#,bonusTax=#bonusTax# where BID=#bid#
+    	</update>
+    	<delete id="delBonus" parameterClass="pcBonus">
+    	delete from pc_bonus where UID=#uid#
+    	</delete>
+    	
+    	<insert id="addDeduction" parameterClass="pcDeduction">
+    	insert into pc_deduction values(#uid#,#deductionDay#,#deductionName#,#deductionNumber#)
+    	</insert>
+    	<update id="upDeduction" parameterClass="pcDeduction">
+    	update pc_deduction set deductionName=#deductionName#,deductionNumber=#deductionNumber# where DID=#did#
+    	</update>
+    	<delete id="delDuction" parameterClass="pcDeduction">
+    	delete from pc_deduction where UID=#uid# and deductionDay=#deductionDay#
+    	</delete>
+    	
+    	<insert id="addRetired" parameterClass="pcRetired">
+    	insert into pc_retired(UID,retiredCompanyName,retiredDay,workYears,retiredNumber) values(#uid#,#retiredCompanyName#,#retiredDay#,#workYears#,#retiredNumber#,#retiredTax#)
+    	</insert>
+    	<update id="upRetired" parameterClass="pcRetired">
+    	update pc_retired set retiredCompanyName=#retiredCompanyName#,retiredDay=#retiredDay#,workYears=#workYears#,retiredNumber=#retiredNumber#,retiredTax=#retiredTax# where RID=#rid#
+    	</update>
+    	<delete id="delRetired" parameterClass="pcRetired">
+    	delete from pc_retired where UID=#uid#
+    	</delete>
+    	
+    	<insert id="addRetirement" parameterClass="pcRetirement">
+    	insert into pc_retirement values(#uid#,#retirementCompanyName#,#retirementDay1#,#retirementDay2#,#retirementOnPay#,#retirementType#,#retirementNumber#,#retirementTax#)
+    	</insert>
+    	<update id="upretirement" parameterClass="pcRetirement">
+    	update pc_retirement set retirementCompanyName=#retirementCompanyName#,retirementDay1=#retirementDay1#,retirementDay2=#retirementDay2#,retirementOnPay=#retirementOnPay#,retirementType=#retirementType#,retirementNumber=#retirementNumber#,retirementTax=#retirementTax# where REID=#reid#
+    	</update>
+    	<delete id="delRetirement" parameterClass="pcRetirement">
+    	delete from pc_retirement where REID=#reid#
+    	</delete>
+    	
+    	<insert id="addIndustry" parameterClass="pcIndustry">
+    	insert into pc_Industry values(#industryName#,#industryType#)
+    	</insert>
+    	<update id="upIndustry" parameterClass="pcIndustry">
+    	update pc_Industry set industryName=#industryName#,industryType=#industryType# where PIID=#piid#
+    	</update>
+    	<delete id="delIndustry" parameterClass="pcIndustry">
+    	delete from pc_Industry where PIID=#piid#
+    	</delete>
+    	
+    	<insert id="addFrontier" parameterClass="pcFrontier">
+    	insert into pc_frontier values(#uid#,#entryDate#,#situationDate#,#inChinaDays#,#inTaxDays#)
+    	</insert>
+    	<update id="upFrontier" parameterClass="pcFrontier">
+    	update pc_frontier set entryDate=#entryDate#,situationDate=#situationDate#,inChinaDays=#inChinaDays#,inTaxDays=#inTaxDays# where PFID=#pfid#
+    	</update>
+    	<delete id="delFrotier" parameterClass="pcFrontier">
+    	delete from pc_frontier where PFID=#pfid#
+    	</delete>
+    	<!-- 奖金参照 -->
+    	<procedure id="prizeCopy" parameterMap="canMap">
+    	 <![CDATA[{call paychex_prizeCopy (?,?,?,?)}]]>
+    	</procedure>
+    	<!-- 补贴参照 -->
+    	<procedure id="subsidyCopy" parameterMap="canMap">
+    	 <![CDATA[{call paychex_subsidyCopy (?,?,?,?)}]]>
+    	</procedure>
+    	<!-- 分红参照 -->
+    	<procedure id="bonusCopy" parameterMap="canMap">
+    	 <![CDATA[{call paychex_bonusCopy (?,?,?,?)}]]>
+    	</procedure>
+    	<!-- 扣除项参照 -->
+    	<procedure id="deductionCopy" parameterMap="canMap">
+    	 <![CDATA[{call paychex_deductionCopy (?,?,?,?)}]]>
+    	</procedure>
+    	<!-- 自定义奖金添加 -->
+		<procedure id="tePrizeType" parameterClass="java.lang.String" resultClass="pcPrizeType">
+		<![CDATA[{call paychex_insertPrizeType (#a#)}]]>
+		</procedure>
+		<!-- 自定义补贴添加 -->
+		<procedure id="teSubsidyType" parameterClass="java.lang.String" resultClass="pcSubsidyType">
+		<![CDATA[{call paychex_insertSubsidyType (#subsidyName#)}]]>
+		</procedure>
+		<!-- 添加当月工资 -->
+		<procedure id="inPayroll" parameterMap="payMap" resultClass="pcPayroll">
+		<![CDATA[{call paychex_payrolltax (?,?)}]]>
+		</procedure>
+    </sqlMap>

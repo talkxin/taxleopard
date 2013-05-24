@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="jint" type="java.lang.Integer" />
+	<typeAlias alias="jstring" type="java.lang.String" />
+	<typeAlias alias="saSavings" type="com.savings.entity.SaSavings" />
+	<typeAlias alias="saSavingsInfo" type="com.savings.entity.SaSavingsInfo" />
+	<typeAlias alias="SaInterest" type="com.savings.entity.SaInterest" />
+	<!-- 个人储蓄基本信息 -->
+	<procedure id="addSaSavingsInfo" parameterClass="saSavingsInfo"
+		resultClass="saSavingsInfo">
+	<![CDATA[{call cr_addSavingsInfo(#uid#,#savingsType#,#savingsName#,#savingsTime#,#savingsAccount#)}]]>
+	</procedure>
+	<update id="upSaSavingsInfo" parameterClass="saSavingsInfo">
+		update
+		sa_SavingsInfo set
+		uid=#uid#,savingsType=#savingsType#,savingsName=#savingsName#,savingsTime=#savingsTime#,savingsAccount=#savingsAccount#
+		where siid=#siid#
+	</update>
+	<delete id="delSaSavingsInfo" parameterClass="jint">
+		delete
+		sa_SavingsInfo where siid=#siid#
+		delete sa_Savings where siid=#siid#
+		delete sa_Interest where siid=#siid#
+	</delete>
+	<!-- 个人储蓄信息 -->
+	<insert id="addSaSavings" parameterClass="saSavings">
+		insert into sa_Savings values(#siid#,#uid#,#savingsType1#,#savingsType2#,#savingsNumber#,#savingsStart#,#savingsEnd#,#savingsAllTime#,#taxNumber#,#interestRate#,#interest#,#taxableNumber#,#payOutNumber#,#taxEdNumber#)
+	</insert>
+	<update id="upSaSavings" parameterClass="saSavings">
+		update sa_Savings set
+		siid=#siid#,uid=#uid#,savingsType1=#savingsType1#,savingsType2=#savingsType2#,savingsNumber=#savingsNumber#,savingsStart=#savingsStart#,savingsEnd=#savingsEnd#,savingsAllTime=#savingsAllTime#,taxNumber=#taxNumber#,interestRate=#interestRate#,interest=#interest#,taxableNumber=#taxableNumber#,payOutNumber=#payOutNumber#,taxEdNumber=#taxEdNumber#
+		where sid=#sid#
+	</update>
+	<delete id="delSaSavings" parameterClass="jint">
+		delete sa_Savings where
+		sid=#sid#
+	</delete>
+	<!-- 返回所有账户 -->
+	<select id="isGetSavingsInfo" parameterClass="jint" resultClass="saSavingsInfo">
+		select * from sa_SavingsInfo where uid=#uid#
+	</select>
+	<!-- 利率表 -->
+	<insert id="addInterest" parameterClass="SaInterest">
+		insert into sa_Interest
+		values(#siid#,#interestTime#,#interest#,#interestRate#)
+	</insert>
+	<update id="upInterest" parameterClass="SaInterest">
+		update sa_Interest set
+		siid=#siid#,interestTime=#interestTime#,interest=#interest#,interestRate=#interestRate#
+		where iid=#iid#
+	</update>
+	<delete id="delInterest" parameterClass="jint">
+		delete sa_Interest where
+		siid=#siid#
+	</delete>
+	<!-- 返回所有利率 -->
+	<select id="isGetInterest" parameterClass="jint" resultClass="SaInterest">
+		select * from sa_Interest where siid=#siid#
+	</select>
+	<!-- 返回最新利率 -->
+	<select id="isGetNewInterest" parameterClass="jint" resultClass="SaInterest">
+		select top 1 * from sa_Interest where siid=#siid# order by iid desc
+	</select>
+</sqlMap>

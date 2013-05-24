@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+    <typeAlias alias="lsLaborYear" type="com.labor.entity.LsLaborYear" />
+    <typeAlias alias="lsLaborItem" type="com.labor.entity.LsLaborItem" />
+    <typeAlias alias="lsLaborMonth" type="com.labor.entity.LsLaborMonth" />
+    <select id="findLsLaborYear" resultClass="lsLaborYear" parameterClass="lsLaborYear">
+		select * from ls_laborYear where UID=#uid# and laborYear=#laborYear# 
+	</select>
+	<select id="findLsLaborItem" resultClass="lsLaborItem" parameterClass="lsLaborItem">
+		select * from ls_laborItem where UID=#uid# and laborYear=#laborYear# 
+		                           and LID=#lid#
+	</select>
+		<select id="findLsLaborMonth" resultClass="lsLaborMonth" parameterClass="lsLaborMonth">
+		select * from ls_laborMonth where UID=#uid# and lbYear=#lbYear# 
+		                           and LTID=#ltid# order by laborInDay
+	</select>	
+</sqlMap>

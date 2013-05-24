@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="peoPersonalPage" type="com.org.entity.PeoPersonalPage" />
+	<typeAlias alias="taxPayer" type="com.org.entity.TaxPayer" />
+	<!-- 查询单个 -->
+	<select id="findPer" resultClass="peoPersonalPage"
+		parameterClass="java.lang.String">
+		select * from peo_personalPage where pid in ($pids$)
+	</select>
+	<!-- 查询所有 -->
+	<select id="findPerAll" resultClass="peoPersonalPage">
+		select * from
+		peo_personalPage
+	</select>
+	<!-- 修改个人模块 -->
+	<update id="upPersonal" parameterClass="taxPayer">
+		update TaxPayer set pid=#pid# where TaxID=#taxID#
+	</update>
+</sqlMap>

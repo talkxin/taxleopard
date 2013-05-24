@@ -1,0 +1,106 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+ul li {
+	list-style: none;
+}
+
+body {
+	background: none repeat scroll 0 0 #FFFFFF;
+	font-family: "ËÎÌו", "Arial Narrow", HELVETICA;
+	font-size: 12px;
+	line-height: 22px;
+	margin: 0;
+	padding: 0 0 12px;
+}
+
+/*data is null*/
+.isPagenull {
+	margin: 50px auto;
+	background: #EFEBDE;
+	text-align: center;
+	position: relative;
+	overflow: none;
+}
+
+.isPagenull img.imgCenter {
+	position: absolute;
+}
+
+.isPagenull .sideImg {
+	position: absolute;
+	width: 32px;
+	height: 32px;
+	background: url(/TaxPersonalReporting1.0/labor/images/001.gif) no-repeat
+		scroll 13px 3px transparent;
+}
+
+.isPagenull .sideImg img {
+	width: 36px;
+	height: 36px;
+	display: block;
+}
+
+.isPagenull .sideImg p {
+	width: 48px;
+}
+
+/*data not null*/
+.isPagenotnull {
+	margin: 50px auto;
+	background: #EFEBDE;
+	text-align: center;
+	position: relative;
+	overflow: scroll;
+}
+
+.isPagenotnull .centerPicCon {
+	position: relative;
+	width: 181px;
+	height: 191px;
+	text-align: center;
+	float: left;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+}
+
+.isPagenotnull .centerPicCon .centerImg {
+	position: absolute;
+	width: 70px;
+	height: 58px;
+	left: 52px;
+	top: 70px;
+}
+
+.isPagenotnull .centerPicCon .centerImg img {
+	cursor: pointer;
+}
+
+.isPagenotnull .centerPicCon .centerImg p {
+	
+}
+
+.isPagenotnull .centerPicCon .sideImg {
+	position: absolute;
+	width: 60px;
+	height: 55px;
+	background: url(/TaxPersonalReporting1.0/labor/images/001.gif) no-repeat
+		scroll 13px 3px transparent;
+}
+
+.isPagenotnull .centerPicCon .sideImg img {
+	width: 36px;
+	height: 36px;
+}
+
+.isPagenotnull .centerPicCon .sideImg p {
+	
+}
+
+.dis {
+	display: none !important;
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="jint" type="java.lang.Integer" />
+	<typeAlias alias="jstring" type="java.lang.String" />
+	<typeAlias alias="oiOtherincome" type="com.otherincome.entity.OiOtherincome" />
+	<!-- 其他所得的操作 -->
+	<insert id="addOtherincome" parameterClass="oiOtherincome">
+		insert into oi_Otherincome
+		values(#uid#,#otherName#,#otherTime#,#otherNumber#,#otherTax#)
+	</insert>
+	<update id="upOtherincome" parameterClass="oiOtherincome">
+		update oi_Otherincome set
+		uid=#uid#,otherName=#otherName#,otherTime=#otherTime#,otherNumber=#otherNumber#,otherTax=#otherTax#
+		where oid=#oid#
+	</update>
+	<delete id="delOtherincome" parameterClass="jint">
+		delete oi_Otherincome where oid=#oid#
+	</delete>
+</sqlMap>

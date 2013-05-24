@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Student">
+	<typeAlias alias="dutys" type="com.org.entity.Dutys" />
+	<!--查询  -->
+	<select id="findDutys" resultClass="Dutys">
+		select * from Dutys
+	</select>
+	<select id="selectDutysByID" resultClass="Dutys" parameterClass="java.lang.Integer">
+		select * from Dutys where DutysID=#dutysID#
+	</select>
+	<!--添加 -->
+	<insert id="addDutys">
+		insert into Dutys values (#dutysName#,#dutysMax#,#dutysMin#)
+	</insert>
+	<!--删除 -->
+	<delete id="delDutys">
+		delete from Dutys where DutysID=#dutysID#
+	</delete>
+	<!--更改 -->
+	<update id="updDutys">
+		update Dutys set DutysName=#dutysName#
+		,DutysMax=#dutysMax#,DutysMin=#dutysMin# where DutysID=#dutysID#
+	</update>
+</sqlMap>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="jint" type="java.lang.Integer" />
+	<typeAlias alias="jstring" type="java.lang.String" />
+	<typeAlias alias="rePressType" type="com.remuneration.entity.RePressType" />
+	<typeAlias alias="rePublish" type="com.remuneration.entity.RePublish" />
+	<typeAlias alias="reRemunerationInfo" type="com.remuneration.entity.ReRemunerationInfo" />
+	<typeAlias alias="reIsGetRemu" type="com.remuneration.entity.ReIsGetRemu" />
+	<typeAlias alias="reIsGetAllRemu" type="com.remuneration.entity.ReIsGetAllRemu" />
+
+	<!-- 查询用户某作品在某年的出版信息 -->
+	<select id="isGetRemu" parameterClass="reIsGetRemu" resultClass="reIsGetRemu">
+		select * from re_isGetRemu where uid=#uid# and rid=#rid# and publishYear=#publishYear#
+	</select>
+    <!-- 查询用户在某出版社某作品的出版信息 -->
+	<select id="isGetAllRemuByPress" parameterClass="reIsGetRemu" resultClass="reIsGetRemu">
+		select * from re_isGetRemu where uid=#uid# and rid=#rid# and ptid=#ptid# 
+	</select>
+    <!-- 查询用户所有作品在某年的出版信息 -->
+	<select id="isGetAllRemu" parameterClass="reIsGetAllRemu" resultClass="reIsGetAllRemu">
+		select * from re_isGetAllRemu where uid=#uid# and publishYear=#publishYear#
+	</select>
+</sqlMap>

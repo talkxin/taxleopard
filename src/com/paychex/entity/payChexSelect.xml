@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    <sqlMap namespace="payChexSelect">
+        <!-- 嵌入实体类 -->
+    	<typeAlias alias="pcBonus" type="com.paychex.entity.PcBonus"/>
+    	<typeAlias alias="pcCooinsurance" type="com.paychex.entity.PcCooinsurance"/>
+    	<typeAlias alias="pcDeduction" type="com.paychex.entity.PcDeduction"/>
+    	<typeAlias alias="pcFrontier" type="com.paychex.entity.PcFrontier"/>
+    	<typeAlias alias="pcIndustry" type="com.paychex.entity.PcIndustry"/>
+    	<typeAlias alias="pcInsurance" type="com.paychex.entity.PcInsurance"/>
+    	<typeAlias alias="pcPayroll" type="com.paychex.entity.PcPayroll"/>
+    	<typeAlias alias="pcPayrollInfo" type="com.paychex.entity.PcPayrollInfo"/>
+    	<typeAlias alias="pcPrize" type="com.paychex.entity.PcPrize"/>
+    	<typeAlias alias="pcPrizeType" type="com.paychex.entity.PcPrizeType"/>
+    	<typeAlias alias="pcRetired" type="com.paychex.entity.PcRetired"/>
+    	<typeAlias alias="pcRetirement" type="com.paychex.entity.PcRetirement"/>
+    	<typeAlias alias="pcSubsidy" type="com.paychex.entity.PcSubsidy"/>
+    	<typeAlias alias="pcSubsidyType" type="com.paychex.entity.PcSubsidyType"/>
+    	<typeAlias alias="pcFrontier" type="com.paychex.entity.PcFrontier"/>
+    	<typeAlias alias="orgNation" type="com.org.entity.OrgNation"/>
+    	<typeAlias alias="orgProvince" type="com.org.entity.OrgProvince"/>
+    	<typeAlias alias="orgCity" type="com.org.entity.OrgCity"/>
+    	<typeAlias alias="isGetPrize" type="com.paychex.entity.IsGetPrize"/>
+    	<typeAlias alias="isGetSubsidy" type="com.paychex.entity.IsGetSubsidy"/>
+    	<typeAlias alias="isCityToProvinceToNation" type="com.paychex.entity.IsCityToProvinceToNation"/>
+    	<typeAlias alias="isGetPayrollInfoAll" type="com.paychex.entity.IsGetPayrollInfoAll"/>
+    	
+    	<!-- 个人信息 -->
+    	<select id="getPayrollInfo" parameterClass="java.lang.Integer" resultClass="pcPayrollInfo">
+    	select * from pc_payrollInfo where UID=#UID#
+    	</select>
+    	<!-- 查找外国国家 -->
+    	<select id="getWaiListNation" resultClass="orgNation">
+    	select * from org_nation where nType=1
+    	</select>
+    	<!-- 查找所有国家 -->
+    	<select id="getListNation" resultClass="orgNation">
+    	select * from org_nation
+    	</select>
+    	<!-- 省 -->
+    	<select id="getListProvince" parameterClass="java.lang.Integer" resultClass="orgProvince">
+    	select * from org_province where NID=#nid#
+    	</select>
+    	<!-- 市 -->
+    	<select id="getListCity" parameterClass="java.lang.Integer" resultClass="orgCity">
+    	select * from org_city where PID=#pid#
+    	</select>
+    	<!-- 以市求国家省 -->
+    	<select id="isCityToProvinceToNation" parameterClass="java.lang.Integer" resultClass="isCityToProvinceToNation">
+    		select * from isCityToProvinceToNation where CID=#cid#
+    	</select>
+    	<!-- 行业 -->
+    	<select id="isGetIndustry" resultClass="pcIndustry">
+    	select * from pc_Industry
+    	</select>
+    	<!-- 奖金 -->
+    	<select id="getListPrize" parameterClass="isGetPrize" resultClass="isGetPrize">
+    	select * from isGetPrize where UID=#uid# and prizeInDay like #prizeInDay#
+    	</select>
+    	<!-- 补贴 -->
+    	<select id="getListSubsidy" parameterClass="isGetSubsidy" resultClass="isGetSubsidy">
+    	select * from isGetSubsidy where UID=#uid# and subsidyInDay like #subsidyInDay#
+    	</select>
+    	<!-- 分红 -->
+    	<select id="getListBonus" parameterClass="pcBonus" resultClass="pcBonus">
+    	select * from pc_bonus where UID=#uid# and bonusInDay like #bonusInDay#
+    	</select>
+    	<!-- 社保 -->
+    	<select id="isGetInsurance" parameterClass="java.lang.Integer" resultClass="pcInsurance">
+    	select * from pc_insurance where UID=#uid#
+    	</select>
+    	<!-- 商业保险 -->
+    	<select id="isGetCooinsurance" parameterClass="java.lang.Integer" resultClass="pcCooinsurance">
+    	select * from pc_cooinsurance where UID=#uid#
+    	</select>
+    	<!-- 上月扣除 -->
+    	<select id="isGetDeduction" parameterClass="pcDeduction" resultClass="pcDeduction">
+    	</select>
+    	<!-- 退职费 -->
+    	<select id="isGetRetired" parameterClass="java.lang.Integer" resultClass="pcRetired">
+    	select * from pc_retired where UID=#uid# order by RID DESC  
+    	</select>
+    	<!-- 退养费 -->
+    	<select id="isGetRetirement" parameterClass="java.lang.Integer" resultClass="pcRetirement">
+    	select * from pc_retirement where UID=#uid# order by REID DESC
+    	</select>
+    	<!-- 查找奖金类型 -->
+    	<select id="isGetPrizeType" parameterClass="java.lang.String" resultClass="pcPrizeType">
+    	select top 5 * from pc_prizeType where prizeName like #name#
+    	</select>
+    	<!-- 查找补贴类型 -->
+    	<select id="isGetSubsidyType" parameterClass="java.lang.String" resultClass="pcSubsidyType">
+    	select top 5 * from pc_subsidyType where subsidyName like #name#
+    	</select>
+    	<!-- 获取个人详细信息（全） -->
+    	<select id="isGetPayrollInfoAll" parameterClass="java.lang.Integer" resultClass="isGetPayrollInfoAll">
+    	select * from isGetPayrollInfoAll where UID=#uid#
+    	</select>
+    </sqlMap>

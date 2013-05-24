@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="jint" type="java.lang.Integer" />
+	<typeAlias alias="jstring" type="java.lang.String" />
+	<typeAlias alias="geti" type="com.geti.entity.GtGetigongshang"/>
+    <!-- 查询用户的个体工商 -->
+	<select id="findGeti" parameterClass="geti" resultClass="geti">
+       select * from  gt_getigongshang where uid=#uid# 
+    </select>
+</sqlMap>

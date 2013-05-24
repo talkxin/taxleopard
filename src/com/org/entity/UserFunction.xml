@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Student">
+	<typeAlias alias="function" type="com.org.entity.Functions" />
+	<typeAlias alias="userFunction" type="com.org.entity.UserFunction" />
+	<!-- 给用户添加功能 -->
+	<insert id="addUserFunction" parameterClass="userFunction">
+		insert into
+		UserFunction (taxID,functionID,expirationDate) values
+		(#taxID#,#functionID#,#expirationDate#)
+	</insert>
+	<!-- 查询用户功能 -->
+	<select id="findUserFunction" resultClass="userFunction">
+		select * from
+		UserFunction
+	</select>
+</sqlMap>

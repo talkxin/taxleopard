@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+     <typeAlias alias="hpRentalHouseInfo" type="com.house.entity.HpRentalHouseInfo"/>
+     <typeAlias alias="isRentalHouseInfo" type="com.house.entity.IsRentalHouseInfo"/>
+    <select id="findIsRentalHouseInfo" resultClass="isRentalHouseInfo" parameterClass="isRentalHouseInfo">
+      select uid,hid,houseName,htid,sum(cast(rentalTaxEndNumber as int)) AS rentalNumSum,sum(cast(rentalTax as int)) as rentalTaxSum,
+            transferEndNumber,transferTax,transferTime
+
+		    from hp_isRentalHouseInfo where HID=#hid# and UID=#uid# 
+            group by uid,hid,houseName,htid,transferEndNumber,transferTax,transferTime
+	</select>
+	<select id="findIsLessee" resultClass="isRentalHouseInfo" parameterClass="isRentalHouseInfo">
+          select uid,hid,rid,rentalName,sum(cast(rentalTaxEndNumber as int)) as  rentalNumSum,sum(cast(rentalTax as int))as rentalTaxSum
+
+		    from hp_isRentalHouseInfo where HID=#hid# and UID=#uid# 
+            group by uid,hid,rid,rentalName
+	</select>
+	<select id="findIsEveryHouse" resultClass="isRentalHouseInfo" parameterClass="isRentalHouseInfo">
+          select uid,hid,houseName,isNull(sum(cast(rentalTaxEndNumber as int)),0) AS rentalNumSum,isNull(sum(cast(rentalTax as int)),0) as rentalTaxSum,
+                  isNull(transferEndNumber,0) AS bieTransferNum,isNull(transferTax,0) AS bieTransferTax,transferTime
+		    from hp_isRentalHouseInfo where UID=#uid# 
+            group by uid,hid,houseName,transferEndNumber,transferTax,transferTime
+	</select>
+	
+	<select id="findIsSingleLessee" resultClass="isRentalHouseInfo" parameterClass="isRentalHouseInfo">
+	        select * from hp_isRentalHouseInfo where uid=#uid# and HID=#hid# and RID=#rid#
+	</select>
+</sqlMap>

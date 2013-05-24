@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Student">
+	<typeAlias alias="memo" type="com.org.entity.Memo" />
+	
+	<!--查询所有备忘-->
+	<select id="findMemo" resultClass="memo">
+		select * from Memo
+	</select>
+	
+	<!-- 查看某天的备忘录 -->
+	<select id="findMemoByDate" resultClass="memo" parameterClass="java.lang.String">
+		
+	</select>
+	
+	<!--添加 备忘-->
+	<insert id="addMemo" parameterClass="memo">
+		insert into Memo values 
+		(#title#,#neiRong#,#remindModel#,#creator#,#beginTime#,#endTime#,#isRead#)
+	</insert>
+	
+	<!--删除 备忘-->
+	<delete id="delMemo" parameterClass="Integer">
+		delete from Memo where memoId=#memoId#
+	</delete>
+	
+	<!--更改备忘-->
+	<update id="updMemo">
+		update Memo set title=#title#,
+		content=#content# where memoId=#memoId#
+		
+	</update>
+
+</sqlMap>

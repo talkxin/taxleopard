@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Student">
+	<typeAlias alias="userPart" type="com.org.entity.UserPart" />
+	<!-- 添加角色-->
+	<insert id="addUserPart" parameterClass="userPart">
+		insert into UserPart
+		values (#userPartName#)
+	</insert>
+	<!--  查询角色-->
+	<select id="findUserPart" resultClass="userPart">
+		select * from UserPart
+	</select>
+	<!--  删除角色-->
+	<delete id="delUserPart" parameterClass="Integer">
+		delete from userPart
+		where UserPartID=#userPartID#
+	</delete>
+	<!--  更改角色-->
+	<update id="updUserPart" parameterClass="userPart">
+		update userPart set
+		UserPartName=#userPartName# where
+		userPartID=#userPartID#
+	</update>
+</sqlMap>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+<sqlMap>
+	<typeAlias alias="jint" type="java.lang.Integer" />
+	<typeAlias alias="jstring" type="java.lang.String" />
+	<typeAlias alias="rePressType" type="com.remuneration.entity.RePressType" />
+	<typeAlias alias="rePublish" type="com.remuneration.entity.RePublish" />
+	<typeAlias alias="reRemunerationInfo" type="com.remuneration.entity.ReRemunerationInfo" />
+	<!-- 对作品的操作 -->
+	<procedure id="addRemunerationInfo" parameterClass="reRemunerationInfo"
+		resultClass="reRemunerationInfo">
+	<![CDATA[{call re_addremunerationinfo(#uid#,#remunerationName#,#remunerationType#)}]]>
+	</procedure>
+	<update id="upRemunerationInfo" parameterClass="reRemunerationInfo">
+		update
+		re_remunerationInfo set
+		uid=#uid#,remunerationName=#remunerationName#,remunerationType=#remunerationType#
+		where rid=#rid#
+	</update>
+	<delete id="delRemunerationInfo" parameterClass="jint">
+		delete
+		re_remunerationInfo where rid=#rid#
+	</delete>
+	<!-- 对出版社的操作 -->
+	<procedure id="addRePressType" parameterClass="rePressType"
+		resultClass="rePressType">
+	<![CDATA[{call re_addPressType(#uid#,#pressName#)}]]>
+	</procedure>
+	<update id="upRePressType" parameterClass="rePressType">
+		update re_PressType
+		set uid=#uid#,pressName=#pressName# where ptid=#ptid#
+	</update>
+	<delete id="delRePressType" parameterClass="jint">
+		delete re_PressType	where ptid=#ptid#
+		delete re_publish where ptid=#ptid#
+	</delete>
+	<!-- 出版信息 -->
+	<insert id="addRePublish" parameterClass="rePublish">
+		insert into re_publish
+		values(#rid#,#ptid#,#uid#,#publishType1#,#publishType2#,#taxed#,#publishTime#,#publishNumber#,#taxNumber#,#taxableNumber#,#payOutNumber#,#taxEdNumber#)
+	</insert>
+	<update id="upRePublish" parameterClass="rePublish">
+		update re_publish set
+		rid=#rid#,ptid=#ptid#,uid=#uid#,publishType1=#publishType1#,publishType2=#publishType2#,taxed=#taxed#,publishTime=#publishTime#,publishNumber=#publishNumber#,taxNumber=#taxNumber#,taxableNumber=#taxableNumber#,payOutNumber=#payOutNumber#,TaxEdNumber=#taxEdNumber#
+		where pid=#pid#
+	</update>
+	<delete id="delRePublish" parameterClass="jint">
+		delete re_publish where
+		pid=#pid#
+	</delete>
+	<!-- 返回用户作品 -->
+	<select id="isGetReRemunerationInfo" parameterClass="jint" resultClass="reRemunerationInfo">
+		select * from re_remunerationInfo where uid=#uid#
+	</select>
+	<!-- 返回用户出版社 -->
+	<select id="isGetRePressType" parameterClass="jint" resultClass="rePressType">
+		select a.ptid,a.uid,a.pressName from re_PressType as a left join (select distinct rid,ptid from re_publish) as b on a.ptid=b.ptid where b.rid=#rid#
+	</select>
+	<!-- 返回用户所有的出版社 -->
+	<select id="isGetAllRePressType" parameterClass="jint" resultClass="rePressType">
+		select * from re_PressType where uid=#uid#
+	</select>
+</sqlMap>

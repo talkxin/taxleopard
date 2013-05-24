@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap      
+    PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+    "http://ibatis.apache.org/dtd/sql-map-2.dtd">
+    <sqlMap>
+    <!-- 实体 -->
+    <typeAlias alias="lsLaborInfo" type="com.labor.entity.LsLaborInfo"/>
+    <typeAlias alias="lsLaborService" type="com.labor.entity.LsLaborService"/>
+	<typeAlias alias="lsLaborCooItem" type="com.labor.entity.LsLaborCooItem"/>
+	<typeAlias alias="lsLaborMonth" type="com.labor.entity.LsLaborMonth"/>
+    
+    <!-- 对公司的操作 -->
+    <procedure id="addLaborInfo" parameterClass="lsLaborInfo" resultClass="lsLaborInfo">
+   <![CDATA[{call labor_insertCoo (#uid#,#companyName#,#laborType#,#industry#)}]]>
+    </procedure>
+    <update id="upLaborInfo" parameterClass="lsLaborInfo">
+    update ls_laborInfo set companyName=#companyName#,laborType=#laborType#,industry=#industry# where lid=#lid#
+    </update>
+    <delete id="delLaborInfo" parameterClass="java.lang.Integer">
+    delete ls_laborInfo where lid=#lid#
+    </delete>
+    <!-- 对项目的操作 -->
+    <procedure id="addLaborCooItem" parameterClass="lsLaborCooItem" resultClass="lsLaborCooItem">
+    <![CDATA[{call labor_insertCooItem (#lid#,#uid#,#itemName#)}]]>
+    </procedure>
+    <update id="upLaborCooItem" parameterClass="lsLaborCooItem">
+    update ls_laborCooItem set itemName=#itemName# where lid=#lid#
+    </update>
+    <delete id="delLaborCooItem" parameterClass="java.lang.Integer">
+    delete ls_laborCooItem where LTID=#LTID#
+    </delete>
+    <delete id="delLaborCooItem2" parameterClass="java.lang.Integer">
+    delete ls_laborCooItem where LID=#LID#
+    </delete>
+    
+    <!-- 添加劳务报酬信息 -->
+    <insert id="addLaborService" parameterClass="lsLaborService">
+    insert into ls_laborService values(#lid#,#ltid#,#laborInDay#,#laborAdd#,#laborTaxEd#,#laborTaxEdNumber#,#laborNumber#,#laborTaxNumber#,#taxNumber#,#taxableNumber#,#payOutNumber#)
+    </insert>
+    <update id="upLaborService" parameterClass="lsLaborMonth">
+    update ls_laborService set ltid=#ltid#,laborInDay=#laborInDay#,laborAdd=#laborAdd#,laborTaxEd=#laborTaxEd#,laborNumber=#laborNumber# where lsid=#lsid# 
+    </update>
+    <delete id="delLaboService" parameterClass="java.lang.Integer">
+    delete ls_laborService where lsid=#lsid#
+    </delete>
+    <delete id="delLaboService2" parameterClass="java.lang.Integer">
+    delete ls_laborService where LID=#lid#
+    </delete>
+    <!-- 添加劳务报酬个税 -->
+    <update id="addLaborTax" parameterClass="lsLaborService">
+    update ls_laborService set taxNumber=#taxNumber#,taxableNumber=#taxableNumber#,payOutNumber=#payOutNumber# where lsid=#lsid# 
+    </update>
+    
+    <!-- 查询用户的公司 -->
+	<select id="isGetUserCoo" resultClass="lsLaborInfo" parameterClass="java.lang.Integer">
+	select * from ls_laborInfo where UID=#uid#
+	</select>
+	<!-- 查询该公司的项目 -->
+	<select id="isGetTeam" resultClass="lsLaborCooItem" parameterClass="java.lang.Integer">
+	select * from ls_laborCooItem where LID=#LID#
+	</select>
+	<!-- 获取公司详细信息 -->
+	<select id="isGetCooInfo" resultClass="lsLaborInfo" parameterClass="java.lang.Integer">
+	select * from ls_laborInfo where LID=#lid#
+	</select>
+    </sqlMap>

@@ -1,0 +1,14 @@
+*{margin:0;padding:0;list-style:none;}
+a,a:link,a:visited,a:active{ color:#000000;text-decoration:none;}
+
+.tabContainer{ width:400px; margin:0 auto; position:relative; font-family:Verdana; font-size:80%; margin:0 auto;  background-color:#e0e3e2; border:3px solid #abadac; }
+.tabContainer li{float:left;margin-right:2px; background:#F0F0F0; border:1px solid  #CCCCCC;}
+.tabContainer li a{display:block!important;display:inline-block;padding:0 10px ;height:30px;line-height:30px;}
+#body .tabContainer li a{color:#ffffff;font-size:14px;font-weight:bolder;}
+.tabContainer li.currentBtn{background:#e0e3e2;}
+#body .tabContainer li.currentBtn a{height:28px; background:#ffffff;}
+#body .tabContainer li a:hover{text-decoration:none;color:#ffffff;}
+#body .tabContainer li.currentBtn a:hover{color:#ffffff;}
+.tabCot ul{line-height:20px;}
+
+

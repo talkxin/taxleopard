@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style type="text/css">
+<!--
+body {
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+/*===== header =====*/
+#header  {
+	background-color: #000000;
+	height: 50px;
+	list-style-type: none;
+	overflow: hidden;
+	
+}
+#header .nav li {
+			float:left;
+		}
+			#header .nav li a {
+				float:left;
+				font-size:12px;
+				
+				color:#929292;
+				text-decoration:none;
+				padding:0 22px 0 22px;
+				line-height:50px;
+			}
+#header .nav li a:hover, #header .nav li a.current {
+	color:#fff;
+	background-image: url(../images/nav_bg.gif);
+	background-repeat: no-repeat;
+	background-position: 50% 100%;
+			}
+
+
+a:link {
+	color: #FFFFFF;
+	text-decoration: none;
+}
+.nav li {
+	padding-left: 20px;
+	float: left;
+	font-size: 12px;
+}
+a:visited {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+a:hover {
+	text-decoration: none;
+	color: #666666;
+}
+a:active {
+	text-decoration: none;
+	color: #FFFFFF;
+}
+/*===== main =====*/
+#main a:link {
+	font-size: 12px;
+	color: #565b3a;
+}
+.main {
+	font-family: "黑体";
+	font-size: 18px;
+	padding-top: 15px;
+	padding-bottom: 5px;
+	padding-left: 20px;
+}
+.main1 {
+	background-image: url(../images/banner.gif);
+	background-repeat: no-repeat;
+	height: 22px;
+	width: 74px;
+}
+#main a:visited {
+	font-size: 12px;
+	color: #565b3a;
+	background-repeat: no-repeat;
+}
+#main a:hover {
+	font-size: 12px;
+	color: #565b3a;
+	background-repeat: no-repeat;
+	background-image: url(../images/banner.gif);
+	height: 22px;
+	width: 80px;
+	background-position: left top;
+	display: block;
+}
+#main a:active {
+	font-size: 12px;
+	color: #565b3a;
+	background-image: url(../images/banner.gif);
+	height: 22px;
+	width: 80px;
+	display: block;
+}
+/*===== search =====*/
+.text {
+	font-size: 10px;
+	background-image: url(../images/search-bg.gif);
+	height: 25px;
+	line-height: 25px;
+	color: #CCCCCC;
+	width: 246px;
+	border-top-style: none;
+	border-right-style: none;
+	border-bottom-style: none;
+	border-left-style: none;
+	background-repeat: no-repeat;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	letter-spacing: 0.5em;
+}
+#search-form {
+	float:right;
+	padding-top: 5px;
+	padding-right: 17px;
+	padding-bottom: 0;
+	padding-left: 0;
+}
+	#search-form fieldset {
+	float:right;
+	border:none;
+	background:url("../images/search-bg.gif") no-repeat 0 0;
+	height: 30px;
+	}	
+		#search-form input.text {
+	width:200px;
+	margin-right:8px;
+	font-size:12px;
+	color:#767676;
+	text-transform:uppercase;
+	border:none;
+	background:none;
+	padding-right: 5px;
+	padding-left: 12px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+		}
+		#search-form input.submit {
+			width:24px;
+			height:27px;
+			border:none;
+			background:none;
+			cursor:pointer;
+		}
+
+		/*=====footer =====*/
+.footer li {
+	font-size: 12px;
+	color: #000000;
+	float: left;
+	padding-left: 5px;
+	margin-left: 5px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	list-style-type: none;
+}
+.footer li a {
+	font-size: 12px;
+	color: #000000;
+}
+.foot li {
+	float: left;
+	padding-left: 2px;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	list-style-type: none;
+	padding-top: 5px;
+}
+#footer {
+	background-color: #FFFFFF;
+}
+#footer1 {
+	background-color: #000000;
+}
+.STYLE1 {font-size: 12px}
+-->
+</style>
+</head>
+
+<body>
+<table width="100%" border="0" cellpadding="0" cellspacing="0" background="../images/bg.gif" >
+ <tr  id="header">
+     <td width="11%">&nbsp;</td>
+    <td width="57%" height="50" >
+    <ul  class="nav">
+    <li ><a href="../index" class="current" >主页</a></li>
+    <li><a href="../loginMain.jsp">个人首页</a></li>
+    <li><a href="#">最新推荐</a></li>
+    <li><a href="#">安全性</a></li>
+    <li><a href="#">关于税豹</a></li>
+    </ul></td>
+   
+    <td width="21%" >
+         <form action="" >
+  <input name="search" type="text"  class="text"value="  SITE SEARCH" onblur="if(this.value==''){this.value='  SITE SEARCH'}" onfocus="if(this.value=='  SITE SEARCH'){this.value=''}" />
+     </form>
+  </td>
+    <td width="11%" >&nbsp;</td>
+ </tr>
+  <tr>
+    <td colspan="4"><table width="1024" border="0" cellspacing="0" cellpadding="0" align="center">
+      <tr>
+        <td height="559"><table width="100%" border="0" cellspacing="0" cellpadding="0" height="559">
+          <tr>
+            <td height="22">&nbsp;</td>
+          </tr>
+          <tr>
+            <td><table width="100%" border="0" cellspacing="0" cellpadding="0"  id="footer">
+              <tr id="footer1">
+                <td width="70" height="6"></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td width="29"></td>
+              </tr>
+              <tr >
+                <td>&nbsp;</td>
+                <td width="113"><img src="../images/logo.gif" width="113" height="120" /></td>
+                <td width="29">&nbsp;</td>
+                <td rowspan="10" ><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td height="46" colspan="2"  class="main">广告服务</td>
+                  </tr>
+                  <tr>
+                    <td width="600" height="2" bgcolor="#dddfd3"></td>
+                    <td></td>
+                  </tr>
+                  <tr>
+                    <td height="452" colspan="2">&nbsp;</td>
+                  </tr>
+                </table></td>
+                <td>&nbsp;</td>
+              </tr>
+              
+              <tr>
+                <td>&nbsp;</td>
+                <td height="25">&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr >
+                <td>&nbsp;</td>
+                <td height="25"   id="main"><a href="gongsijianjie.html" >&nbsp;&nbsp;>公司简介</a></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td height="25"  id="main"><a href="zhaoxiannashi.html">&nbsp;&nbsp;>招贤纳士</a></td>
+                <td >&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td height="25"  class="main1" id="main"><a href="guanggaofuwu.html">&nbsp;&nbsp;>广告服务</a></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td height="25"   id="main"><a href="lianxifangshi.html">&nbsp;&nbsp;>联系方式</a></td>
+                <td >&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td height="25"   id="main"><a href="banquanshengming.html">&nbsp;&nbsp;>版权声明</a></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td height="25"   id="main"><a href="falvguwen.html">&nbsp;&nbsp;>法律顾问</a></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td height="25"  id="main"><a href="wentibaogao.html">&nbsp;&nbsp;>问题报告</a></td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td height="189">&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table></td>
+          </tr>
+          <tr>
+            <td height="22">&nbsp;</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td height="117"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr id="footer1">
+            <td height="6" colspan="4"></td>
+          </tr>
+          <tr  id="footer">
+            <td  width="227" height="111" rowspan="2"   >            </td>
+            <td colspan="2" valign="bottom">
+            <ul class="footer">
+            <li><a href="gongsijianjie.html">公司简介 |</a></li>
+              <li><a href="zhaoxiannashi.html">招贤纳士 |</a></li>
+                <li><a href="guanggaofuwu.html">广告服务 |</a></li>
+                  <li><a href="lianxifangshi.html">联系方式 |</a></li>
+                    <li><a href="banquanshengming.html">版权声明 |</a></li>
+                    <li><a href="falvguwen.html">法律顾问 |</a></li>
+                    <li><a href="wentibaogao.html">问题报告 </a></li>
+            </ul>
+            <br />
+            <ul class="footer">
+            <li><a href="#">客服电话:010-62121399 |</a> </li>
+             <li><a href="#">北京朝阳区嘉美中心写字楼1021 |</a> </li>
+              <li><a href="#">客服信箱:aobsoft@126.com </a> </li>
+            </ul>                  </td>
+            <td width="227" rowspan="2">&nbsp;</td>
+          </tr>
+          <tr>
+            <td width="187" id="footer">
+             <ul class="foot">
+            <li><img src="../images/icon-facebook.jpg" width="32" height="32" /></li>
+             <li><img src="../images/icon-myspace.jpg" /></li>
+              <li><img src="../images/icon-flickr.jpg" /></li>
+               <li><img src="../images/icon-twitter.jpg" /></li>
+               </ul></td>
+            <td width="383" id="footer"><span class="STYLE1">City Business 2011 &copy; 北京赛克尚城科技有限公司</span></td>
+          </tr>
+        </table></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+</body>
+</html>
